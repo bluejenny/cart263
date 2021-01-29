@@ -3,7 +3,7 @@ class SausageDog extends Animal {
     super(x, y, image);
 
     this.found = false;
-    this.rotationSpeed = -.25;
+    this.rotationSpeed = .5;
   }
 
   update() {
@@ -17,6 +17,7 @@ class SausageDog extends Animal {
   mousePressed() {
     if (this.overlap(mouseX, mouseY)) {
       this.found = true;
+      cheerSFX.play();
     }
   }
 }

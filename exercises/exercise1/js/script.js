@@ -1,77 +1,93 @@
 "use strict";
 
 /**
-Find the Sausage Dog Activity with Pippin Bar
+Exercise: 1 Where’s Sausage Dog? New Game+
+Find the Sausage Dog Activity by Pippin Bar
+adapted by Jen Poohachoff
 
 **my version**
 
-Find a randomly selected image from the top of a shuffled Array of *Animal Images*
+Find the flower in the bunch!
 
-- added sound when user find *Sausage Dog* for emphasis
-- added an intro screen to show the selected image to find
-
+- Replaced animals with flowers
+- Randomly selects animal from array of shuffled images
+- Has an intro screen to tell user which flower to search for
+- adds a sound effect when flower is found
 */
 
-const NUM_ANIMAL_IMAGES = 10;
-const NUM_ANIMALS = 100;
 
-//to create a random colored screen on each load
+const NUM_FLOWER_IMAGES = 14;
+const NUM_FLOWERS = 150;
+
+//background
 let bg = {
   r: 0,
   g: 0,
   b: 0
 }
 
+let state = `intro`; // possible states are intro and animation
+
+
+let cheerSFX;
+
 let animalImages = [];
 let animals = [];
 
+//variables for the featured imagess
 let sausageDogImage = undefined;
 let sausageDog = undefined;
 
 
 function preload() {
-  for (let i = 0; i < NUM_ANIMAL_IMAGES; i++) {
-    let animalImage = loadImage(`assets/images/animal${i}.png`);
+  for (let i = 0; i < NUM_FLOWER_IMAGES; i++) {
+    let animalImage = loadImage(`assets/images/flower${i}.png`);
     animalImages.push(animalImage);
   }
 
-  //  = loadImage(`assets/images/sausage-dog.png`)
+  //sound when found
+  cheerSFX = loadSound(`assets/sounds/cheer.mp3`);
 }
-
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  bg.r = random(0, 255);
-  bg.g = random(0, 255);
-  bg.b = random(0, 255);
+  // create random color background
+  bg.r = random(20, 255);
+  bg.g = random(20, 255);
+  bg.b = random(20, 255);
 
-
+  // shuffle the array so random image is on top of stack
   animalImages = shuffle(animalImages);
+
+  // remove the last image of array and place in variable
   sausageDogImage = animalImages.pop();
 
   createAnimals();
   createSausageDog();
-
-
 
 }
 
 
 function draw() {
   background(bg.r, bg.g, bg.b);
-  for (let i = 0; i < animals.length; i++) {
-    animals[i].update();
+
+  if (state === `intro`) {
+
+  title();
+  featuredSausageDog();
+  // keyPressed();
+
   }
-
-
-  // sausageDog.update();
+  else if (state === `animation`) {
+  drawAnimals();
   drawSausageDog();
+  }
 }
 
 function createAnimals() {
-  for (let i = 0; i < NUM_ANIMALS; i++) {
+  for (let i = 0; i < NUM_FLOWERS; i++) {
     let x = random(0, width);
     let y = random(0, height);
     let animalImage = random(animalImages);
@@ -86,16 +102,45 @@ function createSausageDog() {
   sausageDog = new SausageDog(x, y, sausageDogImage);
 }
 
+function drawAnimals() {
+  for (let i = 0; i < animals.length; i++) {
+    animals[i].update();
+  }
+}
+
 function drawSausageDog() {
+  sausageDog.update();
+}
 
-    sausageDog.update();
+function featuredSausageDog() {
 
-if(floor(frameCount/30)%2==0)
-    image(sausageDogImage, 0,0);
+  // equation from TA to make image blink ??
+  if(floor(frameCount/30)%2==0)
+
+  //center along the x axis
+  image(sausageDogImage, width/2-sausageDogImage.width/2, height/2-sausageDogImage.height/2);
+}
+
+function title() {
+  push();
+  textSize(42);
+  textAlign(CENTER, TOP);
+  text('Pick Me', width/2, height/3);
+  textAlign(CENTER, BOTTOM)
+  textSize(22);
+  text('press any key to start', width/2, height/3*2);
+  pop();
 }
 
 function mousePressed() {
   sausageDog.mousePressed();
+}
+
+function keyPressed() {
+  if (state === `intro`) {
+    state = `animation`;
+  }
+
 }
 
 function windowResized() {
