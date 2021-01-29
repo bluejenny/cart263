@@ -10,7 +10,9 @@ class SausageDog extends Animal {
     super.update();
 
     if (this.found) {
+      if (cheerSFX.isPlaying()) {
       this.angle += this.rotationSpeed;
+    }
     }
   }
 
