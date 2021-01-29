@@ -9,10 +9,10 @@ adapted by Jen Poohachoff
 
 Find the flower in the bunch!
 
-- Replaced animals with flowers
-- Randomly selects animal from array of shuffled images
-- Has an intro screen to tell user which flower to search for
-- adds a sound effect when flower is found
+- Flowers replace animals (images free from shutterstock)
+- Using p5 functions shuffle and pop, random image selected to find
+- Intro screen added to tell user which image to search for
+- sound effect added when flower is found
 */
 
 
@@ -31,18 +31,18 @@ let state = `intro`; // possible states are intro and animation
 
 let cheerSFX;
 
-let animalImages = [];
-let animals = [];
+let flowerImages = [];
+let flowers = [];
 
 //variables for the featured imagess
-let sausageDogImage = undefined;
-let sausageDog = undefined;
+let featuredFlowerImage = undefined;
+let featuredFlower = undefined;
 
 
 function preload() {
   for (let i = 0; i < NUM_FLOWER_IMAGES; i++) {
-    let animalImage = loadImage(`assets/images/flower${i}.png`);
-    animalImages.push(animalImage);
+    let flowerImage = loadImage(`assets/images/flower${i}.png`);
+    flowerImages.push(flowerImage);
   }
 
   //sound when found
@@ -59,13 +59,13 @@ function setup() {
   bg.b = random(20, 255);
 
   // shuffle the array so random image is on top of stack
-  animalImages = shuffle(animalImages);
+  flowerImages = shuffle(flowerImages);
 
   // remove the last image of array and place in variable
-  sausageDogImage = animalImages.pop();
+  featuredFlowerImage = flowerImages.pop();
 
-  createAnimals();
-  createSausageDog();
+  createFlowers();
+  createFeaturedFlower();
 
 }
 
@@ -76,49 +76,49 @@ function draw() {
   if (state === `intro`) {
 
   title();
-  featuredSausageDog();
+  featureFlower();
   // keyPressed();
 
   }
   else if (state === `animation`) {
-  drawAnimals();
-  drawSausageDog();
+  drawFlowers();
+  drawFeatureFlower();
   }
 }
 
-function createAnimals() {
+function createFlowers() {
   for (let i = 0; i < NUM_FLOWERS; i++) {
     let x = random(0, width);
     let y = random(0, height);
-    let animalImage = random(animalImages);
-    let animal = new Animal(x, y, animalImage);
-    animals.push(animal);
+    let flowerImage = random(flowerImages);
+    let flower = new Flower(x, y, flowerImage);
+    flowers.push(flower);
   }
 }
 
-function createSausageDog() {
+function createFeaturedFlower() {
   let x = random(0, width);
   let y = random(0, height);
-  sausageDog = new SausageDog(x, y, sausageDogImage);
+  featuredFlower = new FeatureFlower(x, y, featuredFlowerImage);
 }
 
-function drawAnimals() {
-  for (let i = 0; i < animals.length; i++) {
-    animals[i].update();
+function drawFlowers() {
+  for (let i = 0; i < flowers.length; i++) {
+    flowers[i].update();
   }
 }
 
-function drawSausageDog() {
-  sausageDog.update();
+function drawFeatureFlower() {
+  featuredFlower.update();
 }
 
-function featuredSausageDog() {
+function featureFlower() {
 
   // equation from TA to make image blink ??
   if(floor(frameCount/30)%2==0)
 
   //center along the x axis
-  image(sausageDogImage, width/2-sausageDogImage.width/2, height/2-sausageDogImage.height/2);
+  image(featuredFlowerImage, width/2-featuredFlowerImage.width/2, height/2-featuredFlowerImage.height/2);
 }
 
 function title() {
@@ -133,7 +133,7 @@ function title() {
 }
 
 function mousePressed() {
-  sausageDog.mousePressed();
+  featuredFlower.mousePressed();
 }
 
 function keyPressed() {
