@@ -3,7 +3,7 @@ class FeatureFlower extends Flower {
     super(x, y, image);
 
     this.found = false;
-    this.rotationSpeed = .5;
+    this.rotationSpeed = 1;
   }
 
   update() {

@@ -10,9 +10,9 @@ adapted by Jen Poohachoff
 Find the flower in the bunch!
 
 - Flowers replace animals (images free from shutterstock)
-- Using p5 functions shuffle and pop, random image selected to find
+- Using p5 functions shuffle() and pop() so that a random image selected each time
 - Intro screen added to tell user which image to search for
-- sound effect added when flower is found
+- sound effect added when flower is found, animation stops when sound is no longer playing
 */
 
 
@@ -114,8 +114,9 @@ function drawFeatureFlower() {
 
 function featureFlower() {
 
-  // equation from TA to make image blink ??
-  if(floor(frameCount/30)%2==0)
+  // is this an anonymous function?
+  // function offered by Samuel(TA) to make image appear to blink
+  if(floor(frameCount/30)%2==0);
 
   //center along the x axis
   image(featuredFlowerImage, width/2-featuredFlowerImage.width/2, height/2-featuredFlowerImage.height/2);
