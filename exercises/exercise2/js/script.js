@@ -206,11 +206,17 @@ function draw() {
 
 function title() {
   push();
+  fill(255);
   textSize(72);
   textAlign(CENTER, TOP);
-  text("Guess the Animal", 0, -100);
+  text("Guess the Animal", 0, -200);
+  textAlign(CENTER, CENTER);
+  fill(0);
+  textSize(62);
+  text("I think it is *animal*", 0, -80);
   textAlign(CENTER, BOTTOM);
-  textSize(32);
+  fill(255);
+  textSize(42);
   text("(press mouse to start)", 0, 30);
   pop();
 }
