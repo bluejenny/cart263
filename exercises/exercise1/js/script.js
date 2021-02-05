@@ -141,7 +141,12 @@ function keyPressed() {
   if (state === `intro`) {
     state = `animation`;
   }
+}
 
+function mouseClicked() {
+  if (state === `intro`) {
+    state = `animation`;
+  }
 }
 
 function windowResized() {
