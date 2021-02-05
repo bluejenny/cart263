@@ -184,13 +184,12 @@ function setup() {
 }
 
 function draw() {
-  background(40, 120, 200);
+  background(112, 99, 89);
+
 
   if (currentAnswer === currentAnimal) {
     fill(255);
-    // correctSFX.play();
   } else {
-    // wrongSFX.play();
     fill(0);
   }
   let time = millis();
@@ -219,6 +218,12 @@ function saySomething(thingToSay) {
 function guessAnimal(animal) {
   currentAnswer = animal.toLowerCase();
   console.log(currentAnswer);
+
+  if (currentAnswer === currentAnimal) {
+    correctSFX.play();
+  } else {
+    wrongSFX.play();
+  }
 }
 
 function windowResized() {
