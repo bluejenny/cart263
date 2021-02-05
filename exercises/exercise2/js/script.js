@@ -1,10 +1,19 @@
 "use strict";
 
 /**
-Random Voice with Samuel
-
+Exercise 2: Slamina by Pippin Barr, the NEW game
 adapted by Jen Poohachoff
+
+**** Slamina Backwards ****
+Guess the random animal not reversed but spoken in a variety of voice dialects with random pitches, rates and volumes
+
+- added a start screen
+- added more visual flair when you answer is reveled
+- added sound for correct and incorrect answers
+- transformed the answers in a different way than reversing them
+
 */
+
 const ANIMALS = [
   "aardvark",
   "alligator",
@@ -144,6 +153,8 @@ const ANIMALS = [
 
 let currentAnimal = ``;
 let currentAnswer = ``;
+
+// to hold the random voices
 let voicelist;
 
 // font
@@ -152,24 +163,23 @@ let f;
 let rows = 20;
 let columns = 20;
 
-
 let correctSFX;
 let wrongSFX;
 
 let state = `intro`; // possible states are intro and animation
 
-
 function preload() {
-  f = loadFont('assets/fonts/KabinaSemibold-A132.otf');
-  correctSFX = loadSound('assets/sounds/Ethereal-Accents.mp3');
-  wrongSFX = loadSound('assets/sounds/Hockey-Buzzer.mp3');
+  f = loadFont("assets/fonts/KabinaSemibold-A132.otf");
+  correctSFX = loadSound("assets/sounds/Ethereal-Accents.mp3");
+  wrongSFX = loadSound("assets/sounds/Hockey-Buzzer.mp3");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
 
+  // function of responsiveVoice
   voicelist = responsiveVoice.getVoices();
-  console.log(voicelist);
+  console.log(voicelist); // list of voices available on yr computer
 
   if (annyang) {
     let commands = {
@@ -178,9 +188,8 @@ function setup() {
     annyang.addCommands(commands);
     annyang.start();
 
-
     textFont(f, 100);
-    textSize(172);
+    textSize(152);
     textAlign(CENTER, CENTER);
   }
 }
@@ -189,10 +198,9 @@ function draw() {
   background(112, 99, 89, 200);
 
   if (state === `intro`) {
-  title();
-  }
-  else if (state === `animation`) {
-  drawText();
+    title();
+  } else if (state === `animation`) {
+    drawText();
   }
 }
 
@@ -200,13 +208,14 @@ function title() {
   push();
   textSize(72);
   textAlign(CENTER, TOP);
-  text('Guess the Animal', 0, -100);
-  textAlign(CENTER, BOTTOM)
+  text("Guess the Animal", 0, -100);
+  textAlign(CENTER, BOTTOM);
   textSize(32);
-  text('(press mouse to start)', 0, 30);
+  text("(press mouse to start)", 0, 30);
   pop();
 }
 
+// draw the user's guess to the screen
 function drawText() {
   if (currentAnswer === currentAnimal) {
     fill(255);
@@ -221,15 +230,15 @@ function drawText() {
 
 function mousePressed() {
   if (state === `animation`) {
-  currentAnswer = "";
-  currentAnimal = random(ANIMALS);
-  saySomething(currentAnimal);
-  }
-  else {
-    state = `animation`
+    currentAnswer = "";
+    currentAnimal = random(ANIMALS);
+    saySomething(currentAnimal);
+  } else {
+    state = `animation`;
   }
 }
 
+// speak in a random voice with random parameters
 function saySomething(thingToSay) {
   let pick = random(voicelist);
 
@@ -245,6 +254,7 @@ function guessAnimal(animal) {
   currentAnswer = animal.toLowerCase();
   console.log(currentAnswer);
 
+  //play sounds depending on if guess is correct
   if (currentAnswer === currentAnimal) {
     correctSFX.play();
   } else {
