@@ -156,6 +156,8 @@ let columns = 20;
 let correctSFX;
 let wrongSFX;
 
+let state = `intro`; // possible states are intro and animation
+
 
 function preload() {
   f = loadFont('assets/fonts/KabinaSemibold-A132.otf');
@@ -184,9 +186,28 @@ function setup() {
 }
 
 function draw() {
-  background(112, 99, 89);
+  background(112, 99, 89, 200);
 
+  if (state === `intro`) {
+  title();
+  }
+  else if (state === `animation`) {
+  drawText();
+  }
+}
 
+function title() {
+  push();
+  textSize(72);
+  textAlign(CENTER, TOP);
+  text('Guess the Animal', 0, -100);
+  textAlign(CENTER, BOTTOM)
+  textSize(32);
+  text('(press mouse to start)', 0, 30);
+  pop();
+}
+
+function drawText() {
   if (currentAnswer === currentAnimal) {
     fill(255);
   } else {
@@ -199,9 +220,14 @@ function draw() {
 }
 
 function mousePressed() {
+  if (state === `animation`) {
   currentAnswer = "";
   currentAnimal = random(ANIMALS);
   saySomething(currentAnimal);
+  }
+  else {
+    state = `animation`
+  }
 }
 
 function saySomething(thingToSay) {

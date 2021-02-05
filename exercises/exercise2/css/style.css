@@ -17,4 +17,6 @@ body {
   align-content: center;
   height: 100vh; /* Body is the height of the viewport */
   overflow: hidden; /* Hide anything that goes off the window size */
+  background-image: linear-gradient(45deg, #706359 10%, #7e736a 10%, #7e736a 50%, #706359 50%, #706359 60%, #7e736a 60%, #7e736a 100%);
+  background-size: 14.14px 14.14px;
 }
