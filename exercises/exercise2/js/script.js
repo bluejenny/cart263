@@ -213,11 +213,11 @@ function title() {
   textAlign(CENTER, CENTER);
   fill(0);
   textSize(62);
-  text("I think it is *animal*", 0, -80);
+  text("~ I think it is *animal* ~", 0, -80);
   textAlign(CENTER, BOTTOM);
   fill(255);
   textSize(42);
-  text("(press mouse to start)", 0, 30);
+  text("(press mouse to play)", 0, 30);
   pop();
 }
 
