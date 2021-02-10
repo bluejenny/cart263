@@ -1,16 +1,9 @@
 "use strict";
 
 /**
-Exercise 2: Slamina by Pippin Barr, the NEW game
-adapted by Jen Poohachoff
+Project 1: A Night at the Movies
 
-**** Slamina Backwards ****
-Guess the random animal not reversed but spoken in a variety of voice dialects with random pitches, rates and volumes
-
-- added a start screen
-- added more visual flair when you answer is reveled
-- added sound for correct and incorrect answers
-- transformed the answers in a different way than reversing them
+In memory of 2004 Movie Eternal Sunshine of the Spotless Mind
 
 */
 
@@ -159,6 +152,10 @@ let voicelist;
 
 // font
 let f;
+let f2;
+let f3;
+
+let inputTextBox;
 
 let rows = 20;
 let columns = 20;
@@ -170,12 +167,15 @@ let state = `intro`; // possible states are intro and animation
 
 function preload() {
   f = loadFont("assets/fonts/KabinaSemibold-A132.otf");
+  f2 = loadFont("assets/fonts/Futura-Bold-03.ttf");
+  f3 = loadFont("assets/fonts/Futura-Medium-01.ttf");
+
   correctSFX = loadSound("assets/sounds/Ethereal-Accents.mp3");
   wrongSFX = loadSound("assets/sounds/Hockey-Buzzer.mp3");
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight);
 
   // function of responsiveVoice
   voicelist = responsiveVoice.getVoices();
@@ -187,15 +187,11 @@ function setup() {
     };
     annyang.addCommands(commands);
     annyang.start();
-
-    textFont(f, 100);
-    textSize(152);
-    textAlign(CENTER, CENTER);
   }
 }
 
 function draw() {
-  background(112, 99, 89, 200);
+  background(228, 234, 245);
 
   if (state === `intro`) {
     title();
@@ -206,18 +202,27 @@ function draw() {
 
 function title() {
   push();
-  fill(255);
-  textSize(72);
-  textAlign(CENTER, TOP);
-  text("Guess the Animal", 0, -200);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  textSize(62);
-  text("~ I think it is *animal* ~", 0, -80);
-  textAlign(CENTER, BOTTOM);
-  fill(255);
-  textSize(42);
-  text("(press mouse to play)", 0, 30);
+  textAlign(LEFT, CENTER);
+  textFont(f2, 100);
+  textSize(13);
+  fill(58, 66, 138, 200);
+  // text(`Are memories reliable?`, width/12+5, height/4-60 )
+text(`Selected memory removal is possible`, width/12+5, height/4-60 )
+text(``, width/12+5, height/4-60 )
+  textFont(f2, 100);
+  textSize(47);
+  // fill(0);
+  // text("Change your Mind?", width-width/10+2, height/4+2);
+  // fill(228, 162, 63);
+  fill(199, 106, 43, 200);
+  // text(`Clear your mind`, width-width/12, height/4);
+  text(`Erase a Thought`, width/12, height/4);
+  textSize(27);
+  fill(35, 34, 32, 200);
+  text(`clear you mind`, width/12+2, height/4+45);
+  inputTextBox = createInput();
+  inputTextBox.position(width/12, height/4+95);
+  inputTextBox.size(500, 200);
   pop();
 }
 
@@ -228,21 +233,18 @@ function drawText() {
   } else {
     fill(0);
   }
-  let time = millis();
-  rotateX(time / 1000);
-  rotateZ(time / 1234);
   text(currentAnswer, 0, 0);
 }
 
-function mousePressed() {
-  if (state === `animation`) {
-    currentAnswer = "";
-    currentAnimal = random(ANIMALS);
-    saySomething(currentAnimal);
-  } else {
-    state = `animation`;
-  }
-}
+// function mousePressed() {
+//   if (state === `animation`) {
+//     currentAnswer = "";
+//     currentAnimal = random(ANIMALS);
+//     saySomething(currentAnimal);
+//   } else {
+//     state = `animation`;
+//   }
+// }
 
 // speak in a random voice with random parameters
 function saySomething(thingToSay) {
