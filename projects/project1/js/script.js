@@ -207,22 +207,19 @@ function title() {
   textSize(13);
   fill(58, 66, 138, 200);
   // text(`Are memories reliable?`, width/12+5, height/4-60 )
-text(`Selected memory removal is possible`, width/12+5, height/4-60 )
-text(``, width/12+5, height/4-60 )
+  text(`edit your memories.`, width/12+5, height/4-60 )
+  text(``, width/12+5, height/4-60 )
   textFont(f2, 100);
-  textSize(47);
-  // fill(0);
-  // text("Change your Mind?", width-width/10+2, height/4+2);
-  // fill(228, 162, 63);
+  textSize(58);
   fill(199, 106, 43, 200);
-  // text(`Clear your mind`, width-width/12, height/4);
-  text(`Erase a Thought`, width/12, height/4);
-  textSize(27);
+  text(`I'm Feeling`, width/12, height/4);
+  textSize(32);
   fill(35, 34, 32, 200);
-  text(`clear you mind`, width/12+2, height/4+45);
-  inputTextBox = createInput();
-  inputTextBox.position(width/12, height/4+95);
-  inputTextBox.size(500, 200);
+  text(``, width/12+2, height/4+55);
+  rect(width/12+2, height/4+50, 175, 45, 3);
+  // inputTextBox = createInput();
+  // inputTextBox.position(width/12, height/4+95);
+  // inputTextBox.size(500, 200);
   pop();
 }
 
