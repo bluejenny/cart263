@@ -3,145 +3,56 @@
 /**
 Project 1: A Night at the Movies
 
-In memory of 2004 Movie Eternal Sunshine of the Spotless Mind
+In memory of 2004 Movie Eternal Sunshine of the Spotless Mind, RIP
 
 */
 
 const ANIMALS = [
-  "aardvark",
-  "alligator",
-  "alpaca",
-  "antelope",
-  "ape",
-  "armadillo",
-  "baboon",
-  "badger",
-  "bat",
-  "bear",
-  "beaver",
-  "bison",
-  "boar",
-  "buffalo",
-  "bull",
-  "camel",
-  "canary",
-  "capybara",
-  "cat",
-  "chameleon",
-  "cheetah",
-  "chimpanzee",
-  "chinchilla",
-  "chipmunk",
-  "cougar",
-  "cow",
-  "coyote",
-  "crocodile",
-  "crow",
-  "deer",
-  "dingo",
-  "dog",
-  "donkey",
-  "dromedary",
-  "elephant",
-  "elk",
-  "ewe",
-  "ferret",
-  "finch",
-  "fish",
-  "fox",
-  "frog",
-  "gazelle",
-  "gila monster",
-  "giraffe",
-  "gnu",
-  "goat",
-  "gopher",
-  "gorilla",
-  "grizzly bear",
-  "ground hog",
-  "guinea pig",
-  "hamster",
-  "hedgehog",
-  "hippopotamus",
-  "hog",
-  "horse",
-  "hyena",
-  "ibex",
-  "iguana",
-  "impala",
-  "jackal",
-  "jaguar",
-  "kangaroo",
-  "koala",
-  "lamb",
-  "lemur",
-  "leopard",
-  "lion",
-  "lizard",
-  "llama",
-  "lynx",
-  "mandrill",
-  "marmoset",
-  "mink",
-  "mole",
-  "mongoose",
-  "monkey",
-  "moose",
-  "mountain goat",
-  "mouse",
-  "mule",
-  "muskrat",
-  "mustang",
-  "mynah bird",
-  "newt",
-  "ocelot",
-  "opossum",
-  "orangutan",
-  "oryx",
-  "otter",
-  "ox",
-  "panda",
-  "panther",
-  "parakeet",
-  "parrot",
-  "pig",
-  "platypus",
-  "polar bear",
-  "porcupine",
-  "porpoise",
-  "prairie dog",
-  "puma",
-  "rabbit",
-  "raccoon",
-  "ram",
-  "rat",
-  "reindeer",
-  "reptile",
-  "rhinoceros",
-  "salamander",
-  "seal",
-  "sheep",
-  "shrew",
-  "silver fox",
-  "skunk",
-  "sloth",
-  "snake",
-  "squirrel",
-  "tapir",
-  "tiger",
-  "toad",
-  "turtle",
-  "walrus",
-  "warthog",
-  "weasel",
-  "whale",
-  "wildcat",
-  "wolf",
-  "wolverine",
-  "wombat",
-  "woodchuck",
-  "yak",
-  "zebra",
+    "amazing",
+    "awesome",
+    "beautiful",
+    "brilliant",
+    "breathtaking",
+    "cool",
+    "dazzling",
+    "delightful",
+    "electrifying",
+    "elegant",
+    "enchanting",
+    "excellent",
+    "exciting",
+    "fabulous",
+    "fantastic",
+    "fun",
+    "genius",
+    "groundbreaking",
+    "heavenly",
+    "impressive",
+    "innovative",
+    "inventive",
+    "kind",
+    "legendary",
+    "lovely",
+    "magical",
+    "marvelous",
+    "masterful",
+    "miraculous",
+    "original",
+    "perfect",
+    "phenomenal",
+    "powerful",
+    "remarkable",
+    "rejuvenating",
+    "resounding",
+    "skillful",
+    "stupendous",
+    "stunning",
+    "sweet",
+    "terrific",
+    "thoughtful",
+    "thrilling",
+    "wonderful",
+    "wondrous"
 ];
 
 let currentAnimal = ``;
@@ -183,7 +94,7 @@ function setup() {
 
   if (annyang) {
     let commands = {
-      "I think it is *animal": guessAnimal,
+      "I feel *animal": guessAnimal,
     };
     annyang.addCommands(commands);
     annyang.start();
@@ -196,6 +107,7 @@ function draw() {
   if (state === `intro`) {
     title();
   } else if (state === `animation`) {
+    title();
     drawText();
   }
 }
@@ -204,19 +116,20 @@ function title() {
   push();
   textAlign(LEFT, CENTER);
   textFont(f2, 100);
-  textSize(13);
+  textSize(25);
   fill(58, 66, 138, 200);
-  // text(`Are memories reliable?`, width/12+5, height/4-60 )
-  text(`edit your memories.`, width/12+5, height/4-60 )
+  // text(`How are you right now?`, width/12+5, height/4-78 )
+  // text(`can we edit our thoughts.`, width/12+5, height/4-100 )
+  text(`ça va?`, width/12+5, height/4-100 )
   text(``, width/12+5, height/4-60 )
   textFont(f2, 100);
-  textSize(58);
+  textSize(168);
   fill(199, 106, 43, 200);
-  text(`I'm Feeling`, width/12, height/4);
+  text(`I Feel`, width/12, height/4);
   textSize(32);
   fill(35, 34, 32, 200);
   text(``, width/12+2, height/4+55);
-  rect(width/12+2, height/4+50, 175, 45, 3);
+  rect(width/10, height/3*2, width/1.5, 2, 3);
   // inputTextBox = createInput();
   // inputTextBox.position(width/12, height/4+95);
   // inputTextBox.size(500, 200);
@@ -233,25 +146,25 @@ function drawText() {
   text(currentAnswer, 0, 0);
 }
 
-// function mousePressed() {
-//   if (state === `animation`) {
-//     currentAnswer = "";
-//     currentAnimal = random(ANIMALS);
-//     saySomething(currentAnimal);
-//   } else {
-//     state = `animation`;
-//   }
-// }
+function mousePressed() {
+  if (state === `animation`) {
+    currentAnswer = "";
+    currentAnimal = random(ANIMALS);
+    saySomething(currentAnimal);
+  } else {
+    state = `animation`;
+  }
+}
 
 // speak in a random voice with random parameters
 function saySomething(thingToSay) {
   let pick = random(voicelist);
 
   console.log(pick);
-  responsiveVoice.speak(thingToSay, pick.name, {
+  responsiveVoice.speak(`I feel ${thingToSay}`, pick.name, {
     pitch: random(0, 2),
     rate: random(0, 1.5),
-    volume: random(0, 1),
+    volume: random(.4, 1),
   });
 }
 
