@@ -2,11 +2,11 @@ class Ball {
   constructor(x, y, note) {
     this.x = x;
     this.y = y;
-    this.size = 100;
+    this.size = random(50, 150);
     this.fill = {
-      r: random(0, 200),
-      g: random(0, 200),
-      b: random(0, 200)
+      r: random(0, 220),
+      g: random(0, 220),
+      b: random(0, 220)
     };
     this.speed = 33;
     this.vx = random(-this.speed, this.speed);
@@ -41,7 +41,7 @@ class Ball {
   display() {
     push();
     noStroke();
-    fill(this.fill.r, this.fill.g, this.fill.b, 100);
+    fill(this.fill.r, this.fill.g, this.fill.b, 150);
     ellipse(this.x, this.y, this.size);
     pop();
   }

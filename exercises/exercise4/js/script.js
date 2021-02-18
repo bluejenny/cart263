@@ -9,7 +9,7 @@ updates by Jen Poohachoff
 - Counts how many bubbles the user has popped over time
 
 original code by Pippin Barr; Handpose Framework, Bubble Popper,
-Make Some Noise 
+Make Some Noise
 
 */
 
@@ -24,16 +24,18 @@ let handpose;
 // The current set of predictions made by Handpose once it's running
 let predictions = [];
 
-
-// floating bubble to pop
-let bubble = undefined;
 let counter = 0;
 
-// The Balls when clicked
+// The Array of Balls
 let balls = [];
 
 // F-minor
 let notes = [`F3`, `G3`, `Ab4`, `Bb4`, `C4`, `Db4`, `Eb4`, `F4`];
+
+// A timer to count the number of frames up to adding a circle
+let newCircleTimer = 0;
+// A variable to store how long to wait before adding a circle (in frames)
+let newCircleDelay = 5; // <1/4 seconds
 
 /**
 Starts the webcam and the Handpose
@@ -46,27 +48,22 @@ function setup() {
   video.hide();
 
   // Start the Handpose model and switch to our running state when it loads
-  handpose = ml5.handpose(video, {
-    flipHorizontal: true
-  }, function() {
-    // Switch to the running state
-    state = `running`;
-  });
+  handpose = ml5.handpose(
+    video,
+    {
+      flipHorizontal: true,
+    },
+    function () {
+      // Switch to the running state
+      state = `running`;
+    }
+  );
 
   // Listen for prediction events from Handpose and store the results in our
   // predictions array when they occur
-  handpose.on(`predict`, function(results) {
+  handpose.on(`predict`, function (results) {
     predictions = results;
   });
-
-  // create random bubble to pop
-  bubble = {
-  x: random(width),
-  y: height,
-  size: 100,
-  vx: 0,
-  vy: -20
-}
 }
 
 /**
@@ -75,8 +72,7 @@ Handles the two states of the program: loading, running
 function draw() {
   if (state === `loading`) {
     loading();
-  }
-  else if (state === `running`) {
+  } else if (state === `running`) {
     running();
   }
 }
@@ -91,7 +87,7 @@ function loading() {
   textSize(32);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  text(`Loading ${modelName}...`, width / 2, height / 2-50);
+  text(`Loading ${modelName}...`, width / 2, height / 2 - 50);
   pop();
 }
 
@@ -111,39 +107,23 @@ function running() {
     // Highlight it on the canvas
     highlightHand(hand);
   }
-  //move bubble on screen
-  bubble.x += bubble.vx;
-  bubble.y += bubble.vy;
 
-  //move bubble to bottom of screen when it reached top
-  if (bubble.y < 0) {
-    bubble.x = random(width);
-    bubble.y = height;
-}
+  // draw counter
+  push();
+  textSize(132);
+  fill(255, 200);
+  textStyle(BOLD);
+  textAlign(RIGHT, BOTTOM);
+  text(`${counter}`, width - 50, height - 20);
+  pop();
 
-// draw bubble
-push();
-fill(0, 100, 200, 125);
-noStroke();
-ellipse(bubble.x, bubble.y, bubble.size);
-pop();
-
-// draw counter
-push();
-textSize(132);
-fill(255, 200);
-textStyle(BOLD);
-textAlign(RIGHT, BOTTOM);
-text(`${counter}`, width -50, height -20);
-pop();
-
-// draw balls when mouse clicked
-for (let i = 0; i < balls.length; i++) {
-  let ball = balls[i];
-  ball.move();
-  ball.bounce();
-  ball.display();
-}
+  // draw balls
+  for (let i = 0; i < balls.length; i++) {
+    let ball = balls[i];
+    ball.move();
+    ball.bounce();
+    ball.display();
+  }
 }
 
 /**
@@ -156,27 +136,34 @@ function highlightHand(hand) {
   let indexY = index[1];
 
   push();
-  fill(255, 255, 0, 150);
+  fill(255, 255, 0, 175);
   noStroke();
-  ellipse(indexX, indexY, 100);
+  ellipse(indexX, indexY, random(20, 80));
   pop();
 
-  // check bubble popping
-    let d = dist(indexX, indexY, bubble.x, bubble.y);
-    if (d < bubble.size/2) {
-      bubble.x = random(width);
-      bubble.y = height;
-      counter++;
-      console.log(counter);
+  for (let i = balls.length - 1; i >= 0; i--) {
+    let ball = balls[i];
+    let d = dist(indexX, indexY, ball.x, ball.y);
+    if (d < ball.size / 2) {
+      // Pop!
+      balls.splice(i, 1);
+      counter--;
     }
-}
+  }
 
-function mousePressed() {
-  createBall(mouseX, mouseY);
+  // NEW! Increase the new circle timer by one frame
+  newCircleTimer++;
+  // NEW! Check if we have reached the end of our timer
+  if (newCircleTimer >= newCircleDelay) {
+    createBall(random(50, width-50), random(50, height-50));
+    // And reset the timer so it counts back up again
+    newCircleTimer = 0;
+  }
 }
 
 function createBall(x, y) {
   let note = random(notes);
   let ball = new Ball(x, y, note);
   balls.push(ball);
+  counter++;
 }
