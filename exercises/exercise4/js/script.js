@@ -1,15 +1,17 @@
+"use strict";
+
 /**
+bubble popper ++
+updates by Jen Poohachoff
 
-Handpose Framework
-Pippin Barr
+- Added multiple bubbles to the simulation
+- Improve the audiovisual presentation, added sound effects
+- Counts how many bubbles the user has popped over time
 
-A skeleton framework for using ml5.js's Handpose feature. Includes a
-loading screen followed by a live webcam feed with a circle drawn at
-the tip of the user's index finger.
+original code by Pippin Barr; Handpose Framework, Bubble Popper,
+Make Some Noise 
 
 */
-
-"use strict";
 
 // Current state of program
 let state = `loading`; // loading, running
@@ -21,8 +23,17 @@ let modelName = `Handpose`;
 let handpose;
 // The current set of predictions made by Handpose once it's running
 let predictions = [];
+
+
 // floating bubble to pop
 let bubble = undefined;
+let counter = 0;
+
+// The Balls when clicked
+let balls = [];
+
+// F-minor
+let notes = [`F3`, `G3`, `Ab4`, `Bb4`, `C4`, `Db4`, `Eb4`, `F4`];
 
 /**
 Starts the webcam and the Handpose
@@ -48,12 +59,13 @@ function setup() {
     predictions = results;
   });
 
+  // create random bubble to pop
   bubble = {
   x: random(width),
   y: height,
   size: 100,
   vx: 0,
-  vy: -2
+  vy: -20
 }
 }
 
@@ -70,7 +82,7 @@ function draw() {
 }
 
 /**
-Displays a simple loading screen with the loading model's name
+Displays a loading screen with the loading model's name
 */
 function loading() {
   background(255);
@@ -79,7 +91,7 @@ function loading() {
   textSize(32);
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
-  text(`Loading ${modelName}...`, width / 2, height / 2);
+  text(`Loading ${modelName}...`, width / 2, height / 2-50);
   pop();
 }
 
@@ -94,25 +106,44 @@ function running() {
 
   // Check if there currently predictions to display
   if (predictions.length > 0) {
-    // Technically there will only be ONE because it only detects ONE hand
     // Get the hand predicted
     let hand = predictions[0];
     // Highlight it on the canvas
     highlightHand(hand);
   }
+  //move bubble on screen
   bubble.x += bubble.vx;
-bubble.y += bubble.vy;
+  bubble.y += bubble.vy;
 
-if (bubble.y < 0) {
-  bubble.x = random(width);
-  bubble.y = height;
+  //move bubble to bottom of screen when it reached top
+  if (bubble.y < 0) {
+    bubble.x = random(width);
+    bubble.y = height;
 }
 
+// draw bubble
 push();
-fill(0, 100, 200);
+fill(0, 100, 200, 125);
 noStroke();
 ellipse(bubble.x, bubble.y, bubble.size);
 pop();
+
+// draw counter
+push();
+textSize(132);
+fill(255, 200);
+textStyle(BOLD);
+textAlign(RIGHT, BOTTOM);
+text(`${counter}`, width -50, height -20);
+pop();
+
+// draw balls when mouse clicked
+for (let i = 0; i < balls.length; i++) {
+  let ball = balls[i];
+  ball.move();
+  ball.bounce();
+  ball.display();
+}
 }
 
 /**
@@ -125,7 +156,7 @@ function highlightHand(hand) {
   let indexY = index[1];
 
   push();
-  fill(255, 255, 0, 100);
+  fill(255, 255, 0, 150);
   noStroke();
   ellipse(indexX, indexY, 100);
   pop();
@@ -135,5 +166,17 @@ function highlightHand(hand) {
     if (d < bubble.size/2) {
       bubble.x = random(width);
       bubble.y = height;
+      counter++;
+      console.log(counter);
     }
+}
+
+function mousePressed() {
+  createBall(mouseX, mouseY);
+}
+
+function createBall(x, y) {
+  let note = random(notes);
+  let ball = new Ball(x, y, note);
+  balls.push(ball);
 }
