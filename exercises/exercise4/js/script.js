@@ -6,7 +6,8 @@ updates by Jen Poohachoff
 
 - Added multiple bubbles to the simulation
 - Improve the audiovisual presentation, added sound effects
-- Counts how many bubbles the user has popped over time
+- Counts how many bubbles were added and subtracts how many
+the user has popped over time
 
 original code by Pippin Barr; Handpose Framework, Bubble Popper,
 Make Some Noise
@@ -35,7 +36,7 @@ let notes = [`F3`, `G3`, `Ab4`, `Bb4`, `C4`, `Db4`, `Eb4`, `F4`];
 // A timer to count the number of frames up to adding a circle
 let newCircleTimer = 0;
 // A variable to store how long to wait before adding a circle (in frames)
-let newCircleDelay = 5; // <1/4 seconds
+let newCircleDelay = 7; // <1/4 seconds
 
 /**
 Starts the webcam and the Handpose
@@ -111,7 +112,7 @@ function running() {
   // draw counter
   push();
   textSize(132);
-  fill(255, 200);
+  fill(255, 175);
   textStyle(BOLD);
   textAlign(RIGHT, BOTTOM);
   text(`${counter}`, width - 50, height - 20);
@@ -136,7 +137,7 @@ function highlightHand(hand) {
   let indexY = index[1];
 
   push();
-  fill(255, 255, 0, 175);
+  fill(255, 255, 0, 150);
   noStroke();
   ellipse(indexX, indexY, random(20, 80));
   pop();
@@ -145,7 +146,6 @@ function highlightHand(hand) {
     let ball = balls[i];
     let d = dist(indexX, indexY, ball.x, ball.y);
     if (d < ball.size / 2) {
-      // Pop!
       balls.splice(i, 1);
       counter--;
     }

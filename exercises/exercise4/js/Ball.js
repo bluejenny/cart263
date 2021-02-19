@@ -4,9 +4,9 @@ class Ball {
     this.y = y;
     this.size = random(50, 150);
     this.fill = {
-      r: random(0, 220),
-      g: random(0, 220),
-      b: random(0, 220)
+      r: random(0, 200),
+      g: random(0, 200),
+      b: random(0, 200)
     };
     this.speed = 33;
     this.vx = random(-this.speed, this.speed);
