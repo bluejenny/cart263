@@ -32,11 +32,17 @@ let balls = [];
 
 // F-minor
 let notes = [`F3`, `G3`, `Ab4`, `Bb4`, `C4`, `Db4`, `Eb4`, `F4`];
+let popSFX;
 
 // A timer to count the number of frames up to adding a circle
 let newCircleTimer = 0;
 // A variable to store how long to wait before adding a circle (in frames)
 let newCircleDelay = 7; // <1/4 seconds
+
+
+function preload() {
+  popSFX = loadSound('assets/sounds/pop.mp3');
+}
 
 /**
 Starts the webcam and the Handpose
@@ -142,12 +148,14 @@ function highlightHand(hand) {
   ellipse(indexX, indexY, random(20, 80));
   pop();
 
+  //popping the balls
   for (let i = balls.length - 1; i >= 0; i--) {
     let ball = balls[i];
     let d = dist(indexX, indexY, ball.x, ball.y);
     if (d < ball.size / 2) {
       balls.splice(i, 1);
       counter--;
+      popSFX.play();
     }
   }
 
