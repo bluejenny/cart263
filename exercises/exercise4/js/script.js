@@ -91,8 +91,8 @@ function loading() {
   background(255);
 
   push();
+  fill(51, 51, 51);
   textSize(32);
-  textStyle(BOLD);
   textAlign(CENTER, CENTER);
   text(`Loading ${modelName}...`, width / 2, height / 2 - 50);
   pop();
