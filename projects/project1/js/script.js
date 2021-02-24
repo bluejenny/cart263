@@ -1,65 +1,13 @@
-"use strict";
-
 /**
-Project 1: A Night at the Movies
 
-In memory of 2004 Movie Eternal Sunshine of the Spotless Mind, RIP
+
 
 */
 
-const ANIMALS = [
-  "amazing",
-  "awesome",
-  "beautiful",
-  "brilliant",
-  "breathtaking",
-  "cool",
-  "dazzling",
-  "delightful",
-  "electrifying",
-  "elegant",
-  "enchanting",
-  "excellent",
-  "exciting",
-  "fabulous",
-  "fantastic",
-  "fun",
-  "genius",
-  "groundbreaking",
-  "heavenly",
-  "impressive",
-  "innovative",
-  "inventive",
-  "kind",
-  "legendary",
-  "lovely",
-  "magical",
-  "marvelous",
-  "masterful",
-  "miraculous",
-  "original",
-  "perfect",
-  "phenomenal",
-  "powerful",
-  "remarkable",
-  "rejuvenating",
-  "resounding",
-  "skillful",
-  "stupendous",
-  "stunning",
-  "sweet",
-  "terrific",
-  "thoughtful",
-  "thrilling",
-  "wonderful",
-  "wondrous",
-];
+"use strict";
 
-let currentAnimal = ``;
-let currentAnswer = ``;
-
-// to hold the random voices
-let voicelist;
+const NUM_POST_IMAGES = 2;
+const NUM_POSTS = 2;
 
 // Current state of program
 let state = `loading`; // loading, running
@@ -72,63 +20,61 @@ let cocossd;
 // The current set of predictions made by CocoSsd once it's running
 let predictions = [];
 
-// font
-let f;
-let f2;
-let f3;
 
-let inputTextBox;
+let postImages = [];
+let posts = [];
 
-let rows = 20;
-let columns = 20;
+let facePost;
 
-let correctSFX;
-let wrongSFX;
+// create a 16*9 canvas for webcam video
+let w;
+let h;
 
-// let state = `intro`; // possible states are intro and animation
+let slider;
 
+// load the images
 function preload() {
-  f = loadFont("assets/fonts/KabinaSemibold-A132.otf");
-  f2 = loadFont("assets/fonts/Futura-Bold-03.ttf");
-  f3 = loadFont("assets/fonts/Futura-Medium-01.ttf");
-
-  correctSFX = loadSound("assets/sounds/Ethereal-Accents.mp3");
-  wrongSFX = loadSound("assets/sounds/Hockey-Buzzer.mp3");
+  for (let i = 0; i < NUM_POST_IMAGES; i++) {
+    let postImage = loadImage(`assets/images/${i}.jpg`);
+    postImages.push(postImage);
+  }
+  facePost = loadImage(`assets/images/1.jpg`);
 }
 
+//Starts the webcam and the ObjectDetector
 function setup() {
+  w = windowWidth;
+  h = (w * 9) / 16;
+
   createCanvas(windowWidth, windowHeight);
-
-  // function of responsiveVoice
-  voicelist = responsiveVoice.getVoices();
-  console.log(voicelist); // list of voices available on yr computer
-
-  if (annyang) {
-    let commands = {
-      "I feel *animal": guessAnimal,
-    };
-    annyang.addCommands(commands);
-    annyang.start();
-  }
 
   // Start webcam and hide the resulting HTML element
   video = createCapture(VIDEO);
+  video.size()
   video.hide();
 
   // Start the CocoSsd model and when it's ready start detection
   // and switch to the running state
-  cocossd = ml5.objectDetector("cocossd", {}, function () {
+  cocossd = ml5.objectDetector('cocossd', {}, function() {
     // Ask CocoSsd to start detecting objects, calls gotResults
     // if it finds something
     cocossd.detect(video, gotResults);
     // Switch to the running state
-    state = `intro`;
+    state = `running`;
   });
+
+
+  slider = createSlider(0, 255, 0);
+  slider.size(w-100, 20);
+  slider.position(50, height-100);
+  // slider.style('width', '80px');
+  // createPosts();
+  // postImages = shuffle(postImages);
 }
 
-/**
-Called when CocoSsd has detected at least one object in the video feed
-*/
+
+// Called when CocoSsd has detected at least one object in the video feed
+
 function gotResults(err, results) {
   // If there's an error, report it and exit
   if (err) {
@@ -142,55 +88,39 @@ function gotResults(err, results) {
   cocossd.detect(video, gotResults);
 }
 
-function draw() {
-  background(228, 234, 245);
 
+// Handles the two states of the program: loading, running
+function draw() {
   if (state === `loading`) {
     loading();
-  } else if (state === `intro`) {
-    title();
-  } else if (state === `animation`) {
-    animation();
-    drawText();
+  }
+  else if (state === `running`) {
+    running();
   }
 }
 
-function title() {
-  push();
-  textAlign(LEFT, CENTER);
-  textFont(f2, 100);
-  textSize(25);
-  fill(58, 66, 138, 200);
-  // text(`How are you right now?`, width/12+5, height/4-78 )
-  // text(`can we edit our thoughts.`, width/12+5, height/4-100 )
-  text(`ça va?`, width / 12 + 5, height / 4 - 100);
-  text(``, width / 12 + 5, height / 4 - 60);
-  textFont(f2, 100);
-  textSize(168);
-  fill(199, 106, 43, 200);
-  text(`I Feel`, width / 12, height / 4);
-  textSize(32);
-  fill(35, 34, 32, 200);
-  text(``, width / 12 + 2, height / 4 + 55);
-  rect(width / 10, (height / 3) * 2, width / 1.5, 2, 3);
-  // inputTextBox = createInput();
-  // inputTextBox.position(width/12, height/4+95);
-  // inputTextBox.size(500, 200);
-  pop();
-}
-
+/**
+Displays a simple loading screen with the loading model's name
+*/
 function loading() {
   push();
-  textSize(32);
-  textStyle(BOLD);
+  fill(0);
+  textSize(22);
   textAlign(CENTER, CENTER);
-  text(`Loading ${modelName}...`, width / 2, height / 2);
+  text(`Loading ${modelName}...`, width / 2, height / 2-100);
   pop();
 }
 
-function animation() {
+/**
+Displays the webcam.
+If there are currently objects detected it outlines them and labels them
+with the name and confidence value.
+*/
+function running() {
   // Display the webcam
-  image(video, 0, 0, width, height);
+  let flippedVideo = ml5.flipImage(video);
+  image(flippedVideo, 50, 50, w-100, h);
+  filter(INVERT);
 
   // Check if there currently predictions to display
   if (predictions) {
@@ -204,75 +134,49 @@ function animation() {
   }
 }
 
-// draw the user's guess to the screen
-function drawText() {
-  if (currentAnswer === currentAnimal) {
-    fill(255);
-  } else {
-    fill(0);
-  }
-  text(currentAnswer, 0, 0);
-}
-
-function mousePressed() {
-  if (state === `animation`) {
-    currentAnswer = "";
-    currentAnimal = random(ANIMALS);
-    saySomething(currentAnimal);
-  } else {
-    state = `animation`;
+function createPosts() {
+  for (let i = 0; i < NUM_POSTS; i++) {
+    let x = random(0, width);
+    let y = random(0, height);
+    let postImage = random(postImages);
+    let post = new Post(x, y, postImage);
+    posts.push(post);
   }
 }
 
-// speak in a random voice with random parameters
-function saySomething(thingToSay) {
-  let pick = random(voicelist);
-
-  console.log(pick);
-  responsiveVoice.speak(`I feel ${thingToSay}`, pick.name, {
-    pitch: random(0, 2),
-    rate: random(0, 1.5),
-    volume: random(0.4, 1),
-  });
-}
-
-function guessAnimal(animal) {
-  currentAnswer = animal.toLowerCase();
-  console.log(currentAnswer);
-
-  //play sounds depending on if guess is correct
-  if (currentAnswer === currentAnimal) {
-    correctSFX.play();
-  } else {
-    wrongSFX.play();
+function drawPosts() {
+  for (let i = 0; i < posts.length; i++) {
+    posts[i].update();
   }
 }
 
-/**
-Provided with a detected object it draws a box around it and includes its
-label and confidence value
-*/
+
+//Provided with a detected object it
 function highlightObject(object) {
   // Display a box around it
   push();
   noFill();
   stroke(255, 255, 0);
-  rect(object.x, object.y, object.width, object.height);
+  image(facePost, object.x+object.width/2, object.y);
+  facePost.resize(400, 0);
+  // rect(object.x, object.y, object.width, object.height);
+  // postImages = shuffle(postImages);
+  // let featuredPost = postImages.pop();
+  // image(featuredPost, object.x+object.width/2, object.y);
+
+  // drawPosts();
   pop();
   // Display the label and confidence in the center of the box
-  push();
-  textSize(48);
-  textStyle(BOLD);
-  fill(255, 255, 0);
-  textAlign(CENTER, CENTER);
-  text(
-    `${object.label}, ${object.confidence.toFixed(2)}`,
-    object.x + object.width / 2,
-    object.y + object.height / 2
-  );
-  pop();
+  // push();
+  // textSize(18);
+  // fill(0, 255, 0);
+  // textAlign(CENTER, CENTER);
+  // text(`${object.label}, ${object.confidence.toFixed(2)}`, object.width/2, object.height/2);
+  // pop();
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  w = windowWidth;
+  h = (w * 9) / 16;
+  resizeCanvas(w, h);
 }
