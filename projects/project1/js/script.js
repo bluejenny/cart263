@@ -50,7 +50,6 @@ function setup() {
 
   // Start webcam and hide the resulting HTML element
   video = createCapture(VIDEO);
-  video.size()
   video.hide();
 
   // Start the CocoSsd model and when it's ready start detection
@@ -95,6 +94,7 @@ function draw() {
     loading();
   }
   else if (state === `running`) {
+
     running();
   }
 }
@@ -118,9 +118,10 @@ with the name and confidence value.
 */
 function running() {
   // Display the webcam
+  // background(0);
   let flippedVideo = ml5.flipImage(video);
   image(flippedVideo, 50, 50, w-100, h);
-  filter(INVERT);
+  // filter(INVERT);
 
   // Check if there currently predictions to display
   if (predictions) {
