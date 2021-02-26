@@ -1,13 +1,17 @@
 /**
 
+++++ They Live On ++++
+
+
+
 
 
 */
 
 "use strict";
 
-const NUM_POST_IMAGES = 2;
-const NUM_POSTS = 2;
+const NUM_POST_IMAGES = 5;
+const NUM_POSTS = 20;
 
 // Current state of program
 let state = `loading`; // loading, running
@@ -20,7 +24,6 @@ let cocossd;
 // The current set of predictions made by CocoSsd once it's running
 let predictions = [];
 
-
 let postImages = [];
 let posts = [];
 
@@ -30,31 +33,44 @@ let facePost;
 let w;
 let h;
 
+// range slider
 let slider;
+
+// do not load video until ready
+let videoReady = false;
+
+// font
+let f;
+
+// let state = `intro`; // possible states are intro, loading and running
+
 
 // load the images
 function preload() {
   for (let i = 0; i < NUM_POST_IMAGES; i++) {
-    let postImage = loadImage(`assets/images/${i}.jpg`);
+    let postImage = loadImage(`assets/images/${i}.png`);
     postImages.push(postImage);
   }
-  facePost = loadImage(`assets/images/1.jpg`);
+  f = loadFont("assets/fonts/Flood.otf");
+  facePost = loadImage(`assets/images/sunglasses.png`);
 }
 
 //Starts the webcam and the ObjectDetector
 function setup() {
+  createCanvas(windowWidth, windowHeight);
   w = windowWidth;
   h = (w * 9) / 16;
 
-  createCanvas(windowWidth, windowHeight);
-
   // Start webcam and hide the resulting HTML element
-  video = createCapture(VIDEO);
+  video = createCapture(VIDEO, function () {
+    videoReady = true;
+  });
   video.hide();
+
 
   // Start the CocoSsd model and when it's ready start detection
   // and switch to the running state
-  cocossd = ml5.objectDetector('cocossd', {}, function() {
+  cocossd = ml5.objectDetector("cocossd", {}, function () {
     // Ask CocoSsd to start detecting objects, calls gotResults
     // if it finds something
     cocossd.detect(video, gotResults);
@@ -62,18 +78,14 @@ function setup() {
     state = `running`;
   });
 
+  slider = createSlider(0, 16, 1);
+  slider.size(w - 100, 20);
+  slider.position(50, height - 100);
 
-  slider = createSlider(0, 255, 0);
-  slider.size(w-100, 20);
-  slider.position(50, height-100);
-  // slider.style('width', '80px');
-  // createPosts();
-  // postImages = shuffle(postImages);
+  createPosts();
 }
 
-
 // Called when CocoSsd has detected at least one object in the video feed
-
 function gotResults(err, results) {
   // If there's an error, report it and exit
   if (err) {
@@ -87,27 +99,34 @@ function gotResults(err, results) {
   cocossd.detect(video, gotResults);
 }
 
-
 // Handles the two states of the program: loading, running
 function draw() {
-  if (state === `loading`) {
+if (state === `loading`) {
     loading();
-  }
-  else if (state === `running`) {
-
+  } else if (state === `running`) {
     running();
   }
+}
+
+function intro() {
+  push();
+  fill(0);
+  textSize(22);
+  textAlign(CENTER, CENTER);
+  text(`They Live`, width / 2, height / 2 - 100);
+  pop();
 }
 
 /**
 Displays a simple loading screen with the loading model's name
 */
 function loading() {
+  background(255);
   push();
   fill(0);
   textSize(22);
   textAlign(CENTER, CENTER);
-  text(`Loading ${modelName}...`, width / 2, height / 2-100);
+  text(`Loading ${modelName}...`, width / 2, height / 2 - 100);
   pop();
 }
 
@@ -117,11 +136,30 @@ If there are currently objects detected it outlines them and labels them
 with the name and confidence value.
 */
 function running() {
-  // Display the webcam
-  // background(0);
-  let flippedVideo = ml5.flipImage(video);
-  image(flippedVideo, 50, 50, w-100, h);
-  // filter(INVERT);
+  background(0);
+
+  if (slider.value() > 1 && slider.value() <6) {
+    background(0, 110, 80);
+  }
+
+  if (videoReady) {
+    // Display the webcam
+    let flippedVideo = ml5.flipImage(video);
+    image(flippedVideo, 50, 50, w - 100, h);
+
+    let nmbr = slider.value();
+    if (nmbr > 1) {
+      filter(INVERT);
+      drawPosts();
+    }
+
+    if (nmbr > 6) {
+      filter(INVERT);
+      filter(THRESHOLD, nmbr / 50);
+    }
+  }
+
+
 
   // Check if there currently predictions to display
   if (predictions) {
@@ -147,10 +185,10 @@ function createPosts() {
 
 function drawPosts() {
   for (let i = 0; i < posts.length; i++) {
+    posts[i].transparency = slider.value()*5;
     posts[i].update();
   }
 }
-
 
 //Provided with a detected object it
 function highlightObject(object) {
@@ -160,20 +198,16 @@ function highlightObject(object) {
   stroke(255, 255, 0);
   image(facePost, object.x+object.width/2, object.y);
   facePost.resize(400, 0);
-  // rect(object.x, object.y, object.width, object.height);
-  // postImages = shuffle(postImages);
-  // let featuredPost = postImages.pop();
-  // image(featuredPost, object.x+object.width/2, object.y);
+  rect(object.x, object.y, object.width, object.height);
 
-  // drawPosts();
   pop();
   // Display the label and confidence in the center of the box
-  // push();
-  // textSize(18);
-  // fill(0, 255, 0);
-  // textAlign(CENTER, CENTER);
-  // text(`${object.label}, ${object.confidence.toFixed(2)}`, object.width/2, object.height/2);
-  // pop();
+  push();
+  textSize(18);
+  fill(0, 255, 0);
+  textAlign(CENTER, CENTER);
+  text(`${object.label}, ${object.confidence.toFixed(2)}`, object.width/2, object.height/2);
+  pop();
 }
 
 function windowResized() {
