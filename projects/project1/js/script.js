@@ -1,8 +1,8 @@
 /**
 
-++++ They Live On ++++
+++++ We flippedVideo ++++
 
-
+CART 263 # Project 1 - A Night at the Movies
 
 
 
@@ -10,8 +10,8 @@
 
 "use strict";
 
-const NUM_POST_IMAGES = 5;
-const NUM_POSTS = 20;
+const NUM_POST_IMAGES = 7;
+const NUM_POSTS = 30;
 
 // Current state of program
 let state = `loading`; // loading, running
@@ -42,7 +42,10 @@ let videoReady = false;
 // font
 let f;
 
-// let state = `intro`; // possible states are intro, loading and running
+// A timer to count the number of frames up to adding a circle
+let newCircleTimer = 0;
+// A variable to store how long to wait before adding a circle (in frames)
+let newCircleDelay; // <1/2 second
 
 
 // load the images
@@ -83,6 +86,7 @@ function setup() {
   slider.position(50, height - 100);
 
   createPosts();
+  newCircleDelay = random(0, 60);
 }
 
 // Called when CocoSsd has detected at least one object in the video feed
@@ -106,15 +110,6 @@ if (state === `loading`) {
   } else if (state === `running`) {
     running();
   }
-}
-
-function intro() {
-  push();
-  fill(0);
-  textSize(22);
-  textAlign(CENTER, CENTER);
-  text(`They Live`, width / 2, height / 2 - 100);
-  pop();
 }
 
 /**
@@ -157,6 +152,10 @@ function running() {
       filter(INVERT);
       filter(THRESHOLD, nmbr / 50);
     }
+
+    if (nmbr === 16) {
+      title();
+    }
   }
 
 
@@ -196,8 +195,8 @@ function highlightObject(object) {
   push();
   noFill();
   stroke(255, 255, 0);
-  image(facePost, object.x+object.width/2, object.y);
-  facePost.resize(400, 0);
+  image(facePost, object.width/2, object.y+100);
+  facePost.resize(250, 0);
   rect(object.x, object.y, object.width, object.height);
 
   pop();
@@ -209,6 +208,27 @@ function highlightObject(object) {
   text(`${object.label}, ${object.confidence.toFixed(2)}`, object.width/2, object.height/2);
   pop();
 }
+
+
+function title() {
+  push();
+  background(0);
+  newCircleTimer++;
+  if (newCircleTimer >= newCircleDelay) {
+  background(255, 145, 175);
+  newCircleTimer = random(0, 60);
+}
+  textFont(f, 100);
+  fill(255);
+  textSize(100);
+  textAlign(CENTER, CENTER);
+  angleMode(DEGREES)
+  rotate(3);
+  text(`We`, width / 2, height / 2 - 150);
+  text(`Live`, width / 2, height / 2 - 70);
+  pop();
+}
+
 
 function windowResized() {
   w = windowWidth;
