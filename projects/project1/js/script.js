@@ -195,8 +195,8 @@ function highlightObject(object) {
   push();
   noFill();
   stroke(255, 255, 0);
-  image(facePost, object.width/2, object.y+100);
-  facePost.resize(250, 0);
+  // image(facePost, object.width/2, object.y+100);
+  // facePost.resize(250, 0);
   rect(object.x, object.y, object.width, object.height);
 
   pop();
