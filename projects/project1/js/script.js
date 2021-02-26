@@ -215,17 +215,21 @@ function title() {
   background(0);
   newCircleTimer++;
   if (newCircleTimer >= newCircleDelay) {
+  fill(255);
   background(255, 145, 175);
-  newCircleTimer = random(0, 60);
+  newCircleTimer = random(10, 80);
 }
   textFont(f, 100);
-  fill(255);
+  fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
   angleMode(DEGREES)
-  rotate(3);
+  rotate(-3);
   text(`We`, width / 2, height / 2 - 150);
   text(`Live`, width / 2, height / 2 - 70);
+  fill(255);
+  text(`We`, width / 2, height / 2 - 155);
+  text(`Live`, width / 2, height / 2 - 75);
   pop();
 }
 
