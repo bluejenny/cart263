@@ -17,6 +17,7 @@ const NUM_POSTS = 30;
 let state = `loading`; // loading, running
 // User's webcam
 let video;
+
 // The name of our model
 let modelName = `CocoSsd`;
 // ObjectDetector object (using the name of the model for clarify)
@@ -28,6 +29,7 @@ let postImages = [];
 let posts = [];
 
 let facePost;
+let titlePost;
 
 // create a 16*9 canvas for webcam video
 let w;
@@ -55,7 +57,8 @@ function preload() {
     postImages.push(postImage);
   }
   f = loadFont("assets/fonts/Flood.otf");
-  facePost = loadImage(`assets/images/sunglasses.png`);
+  facePost = loadImage(`assets/images/sunglasses.jpg`);
+  titlePost = loadImage(`assets/images/tvs.jpg`);
 }
 
 //Starts the webcam and the ObjectDetector
@@ -67,19 +70,17 @@ function setup() {
   // Start webcam and hide the resulting HTML element
   video = createCapture(VIDEO, function () {
     videoReady = true;
+    // Start the CocoSsd model and when it's ready start detection
+    // and switch to the running state
+    cocossd = ml5.objectDetector("cocossd", {}, function () {
+      // Ask CocoSsd to start detecting objects, calls gotResults
+      // if it finds something
+      cocossd.detect(video, gotResults);
+      // Switch to the running state
+      state = `running`;
+    });
   });
   video.hide();
-
-
-  // Start the CocoSsd model and when it's ready start detection
-  // and switch to the running state
-  cocossd = ml5.objectDetector("cocossd", {}, function () {
-    // Ask CocoSsd to start detecting objects, calls gotResults
-    // if it finds something
-    cocossd.detect(video, gotResults);
-    // Switch to the running state
-    state = `running`;
-  });
 
   slider = createSlider(0, 16, 1);
   slider.size(w - 100, 20);
@@ -88,6 +89,8 @@ function setup() {
   createPosts();
   newCircleDelay = random(0, 60);
 }
+
+
 
 // Called when CocoSsd has detected at least one object in the video feed
 function gotResults(err, results) {
@@ -134,7 +137,7 @@ function running() {
   background(0);
 
   if (slider.value() > 1 && slider.value() <6) {
-    background(0, 110, 80);
+    background(255);
   }
 
   if (videoReady) {
@@ -146,10 +149,15 @@ function running() {
     if (nmbr > 1) {
       filter(INVERT);
       drawPosts();
+      if (nmbr < 6) {
+      tint(255, 127);
+      image(facePost, 50, 50, w - 100, h);
+      }
+      filter(INVERT);
     }
 
     if (nmbr > 6) {
-      filter(INVERT);
+
       filter(THRESHOLD, nmbr / 50);
     }
 
@@ -167,7 +175,9 @@ function running() {
       // Get the object predicted
       let object = predictions[i];
       // Highlight it on the canvas
+      if (slider.value() > 1 && slider.value() < 16) {
       highlightObject(object);
+      }
     }
   }
 }
@@ -194,29 +204,36 @@ function highlightObject(object) {
   // Display a box around it
   push();
   noFill();
-  stroke(255, 255, 0);
-  // image(facePost, object.width/2, object.y+100);
-  // facePost.resize(250, 0);
-  rect(object.x, object.y, object.width, object.height);
+  stroke(0, 255, 0);
+  strokeWeight(5);
+  rect(object.x+100, object.y+100, object.width+100, object.height+100);
 
   pop();
   // Display the label and confidence in the center of the box
   push();
-  textSize(18);
+  textFont(f, 100);
+  textSize(38);
   fill(0, 255, 0);
-  textAlign(CENTER, CENTER);
-  text(`${object.label}, ${object.confidence.toFixed(2)}`, object.width/2, object.height/2);
+  textAlign(RIGHT, RIGHT);
+
+  if (slider.value() > 1 && slider.value() < 6) {
+    object.label = `They Live`;
+  }
+  text(`${object.label}`, object.width, object.height);
   pop();
 }
 
 
 function title() {
   push();
+
   background(0);
+  tint(255, 0);
   newCircleTimer++;
   if (newCircleTimer >= newCircleDelay) {
   fill(255);
-  background(255, 145, 175);
+  tint(255, 25);
+  image(titlePost, 50, 50, w - 100, h);
   newCircleTimer = random(10, 80);
 }
   textFont(f, 100);
@@ -225,11 +242,12 @@ function title() {
   textAlign(CENTER, CENTER);
   angleMode(DEGREES)
   rotate(-3);
-  text(`We`, width / 2, height / 2 - 150);
-  text(`Live`, width / 2, height / 2 - 70);
-  fill(255);
-  text(`We`, width / 2, height / 2 - 155);
-  text(`Live`, width / 2, height / 2 - 75);
+  text(`We`, width - 250, height - 250);
+  text(`Live`, width -250, height - 170);
+  // fill(255, 145, 175);
+  fill(0, 255, 0);
+  text(`We`, width - 250, height - 255);
+  text(`Live`, width - 250, height - 175);
   pop();
 }
 
