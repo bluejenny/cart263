@@ -10,8 +10,8 @@ CART 263 # Project 1 - A Night at the Movies
 
 "use strict";
 
-const NUM_POST_IMAGES = 7;
-const NUM_POSTS = 30;
+const NUM_POST_IMAGES = 8;
+const NUM_POSTS = 50;
 
 // Current state of program
 let state = `loading`; // loading, running
@@ -19,7 +19,7 @@ let state = `loading`; // loading, running
 let video;
 
 // The name of our model
-let modelName = `CocoSsd`;
+let modelName = `Face Detector, Please Stand By`;
 // ObjectDetector object (using the name of the model for clarify)
 let cocossd;
 // The current set of predictions made by CocoSsd once it's running
@@ -48,7 +48,6 @@ let f;
 let newCircleTimer = 0;
 // A variable to store how long to wait before adding a circle (in frames)
 let newCircleDelay; // <1/2 second
-
 
 // load the images
 function preload() {
@@ -90,8 +89,6 @@ function setup() {
   newCircleDelay = random(0, 60);
 }
 
-
-
 // Called when CocoSsd has detected at least one object in the video feed
 function gotResults(err, results) {
   // If there's an error, report it and exit
@@ -108,10 +105,37 @@ function gotResults(err, results) {
 
 // Handles the two states of the program: loading, running
 function draw() {
-if (state === `loading`) {
+  if (state === `loading`) {
     loading();
   } else if (state === `running`) {
     running();
+  }
+
+  if (slider.value() < 1) {
+    push();
+
+    background(0);
+    tint(255, 0);
+    newCircleTimer++;
+    if (newCircleTimer >= newCircleDelay) {
+      fill(255);
+      tint(255, 25);
+      image(titlePost, 50, 50, w - 100, h);
+      newCircleTimer = random(10, 80);
+    }
+    textFont(f, 100);
+    fill(0);
+    textSize(90);
+    textAlign(CENTER, CENTER);
+    angleMode(DEGREES);
+    rotate(-3);
+    text(`They`, 215, height - 275);
+    text(`Live`, 215, height - 195);
+    // fill(255, 145, 175);
+    fill(0, 255, 255);
+    text(`They`, 215, height - 280);
+    text(`Live`, 215, height - 200);
+    pop();
   }
 }
 
@@ -136,7 +160,7 @@ with the name and confidence value.
 function running() {
   background(0);
 
-  if (slider.value() > 1 && slider.value() <6) {
+  if (slider.value() > 1 && slider.value() < 6) {
     background(255);
   }
 
@@ -150,14 +174,13 @@ function running() {
       filter(INVERT);
       drawPosts();
       if (nmbr < 6) {
-      tint(255, 127);
-      image(facePost, 50, 50, w - 100, h);
+        tint(255, 127);
+        image(facePost, 50, 50, w - 100, h);
       }
       filter(INVERT);
     }
 
     if (nmbr > 6) {
-
       filter(THRESHOLD, nmbr / 50);
     }
 
@@ -165,8 +188,6 @@ function running() {
       title();
     }
   }
-
-
 
   // Check if there currently predictions to display
   if (predictions) {
@@ -176,7 +197,7 @@ function running() {
       let object = predictions[i];
       // Highlight it on the canvas
       if (slider.value() > 1 && slider.value() < 16) {
-      highlightObject(object);
+        highlightObject(object);
       }
     }
   }
@@ -194,7 +215,7 @@ function createPosts() {
 
 function drawPosts() {
   for (let i = 0; i < posts.length; i++) {
-    posts[i].transparency = slider.value()*5;
+    posts[i].transparency = slider.value() * 5;
     posts[i].update();
   }
 }
@@ -204,25 +225,49 @@ function highlightObject(object) {
   // Display a box around it
   push();
   noFill();
-  stroke(0, 255, 0);
+  stroke(255, 145, 175);
   strokeWeight(5);
-  rect(object.x+100, object.y+100, object.width+100, object.height+100);
+  if (slider.value() > 1 && slider.value() < 6) {
+    stroke(0, 255, 255);
+  }
+  rect(object.x + 100, object.y + 100, object.width + 100, object.height + 100);
 
   pop();
   // Display the label and confidence in the center of the box
   push();
   textFont(f, 100);
-  textSize(38);
-  fill(0, 255, 0);
   textAlign(RIGHT, RIGHT);
+  textSize(38);
+  fill(255, 145, 175);
+  if (slider.value() >= 6) {
+
+    if (object.label === `person`) {
+      object.label = `Human`;
+      text(
+        `${object.confidence.toFixed(2)}`,
+        object.width + 100,
+        object.height
+      );
+    }
+  }
 
   if (slider.value() > 1 && slider.value() < 6) {
-    object.label = `They Live`;
+    stroke(0, 255, 255);
+    fill(0, 255, 255);
+    if (object.label === `person`) {
+      object.label = `Consumer`;
+      text(
+        `${object.confidence.toFixed(2)}`,
+        object.width + 100,
+        object.height
+      );
+    } else {
+    object.label = `Buy`;
+    }
   }
   text(`${object.label}`, object.width, object.height);
   pop();
 }
-
 
 function title() {
   push();
@@ -231,26 +276,24 @@ function title() {
   tint(255, 0);
   newCircleTimer++;
   if (newCircleTimer >= newCircleDelay) {
-  fill(255);
-  tint(255, 25);
-  image(titlePost, 50, 50, w - 100, h);
-  newCircleTimer = random(10, 80);
-}
+    fill(255);
+    tint(255, 25);
+    image(titlePost, 50, 50, w - 100, h);
+    newCircleTimer = random(10, 80);
+  }
   textFont(f, 100);
   fill(0);
   textSize(100);
   textAlign(CENTER, CENTER);
-  angleMode(DEGREES)
+  angleMode(DEGREES);
   rotate(-3);
   text(`We`, width - 250, height - 250);
-  text(`Live`, width -250, height - 170);
-  // fill(255, 145, 175);
-  fill(0, 255, 0);
+  text(`Live`, width - 250, height - 170);
+  fill(255, 145, 175);
   text(`We`, width - 250, height - 255);
   text(`Live`, width - 250, height - 175);
   pop();
 }
-
 
 function windowResized() {
   w = windowWidth;
