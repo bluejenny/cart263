@@ -245,9 +245,10 @@ function highlightObject(object) {
   push();
   textFont(f, 100);
   textAlign(RIGHT, RIGHT);
-  textSize(42);
+  textSize(38);
   fill(230, 120, 150);
   if (slider.value() > 7) {
+    textSize(46);
     if (object.label === `person`) {
       object.label = `Human`;
       text(
