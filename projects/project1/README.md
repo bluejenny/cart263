@@ -1,7 +1,7 @@
 CART 263 # Project 1 - A Night at the Movies
 Jennifer Poohachoff
 
-++++ They Live On +++++
+++++ We Live +++++
 
 Is capitalism the root of all evil or are we just making the wrong choices. Are our options so black and white. Is it really this simple to change the world?
 
