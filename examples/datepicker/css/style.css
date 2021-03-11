@@ -1,0 +1,25 @@
+/*********************************************
+
+
+
+**********************************************/
+
+body {
+  font-family: sans-serif;
+  display: grid;
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20%;
+}
+
+section {
+  padding: 5%;
+}
+
+label {
+  color: #222;
+}
