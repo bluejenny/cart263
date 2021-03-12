@@ -35,7 +35,11 @@ body {
 
 header {
   height: 150px;
-  background-color: #222;
+  background-color: #111;
+}
+
+header:hover {
+  background-color: #ff0;
 }
 
 main {
@@ -49,8 +53,12 @@ main {
 }
 
 footer {
-  height: 200px;
+  height: 180px;
   background-color: #ff0;
+}
+
+footer:hover {
+  background-color: #111;
 }
 
 h1 {
@@ -59,6 +67,10 @@ h1 {
   text-align: center;
   color: yellow;
   text-transform: uppercase;
+}
+
+h1:hover {
+  color: #000;
 }
 
 

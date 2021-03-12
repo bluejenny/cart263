@@ -2,11 +2,11 @@
 Haiku Generator ++
 with Pippin Barr
 
-enhance by Jennifer Poohachoff
+enhanced version by Jennifer Poohachoff
 
 - improve the HTML and CSS presentation of the haiku
 - Added a randomly generated title to the poem by using a random word from each line
-- Add another DOM event into the user interaction that changes the color of the text
+- Add another DOM event into the user interaction that changes the color of the text when mouse over
 */
 
 "use strict";
