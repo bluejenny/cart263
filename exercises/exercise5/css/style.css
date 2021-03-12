@@ -34,7 +34,7 @@ body {
 }
 
 header {
-  height: 100px;
+  height: 150px;
   background-color: #222;
 }
 
@@ -49,8 +49,16 @@ main {
 }
 
 footer {
-  height: 150px;
-  background-color: #222;
+  height: 200px;
+  background-color: #ff0;
+}
+
+h1 {
+  font-family: 'modula-round-outlined', sans-serif;
+  font-size: 5rem;
+  text-align: center;
+  color: yellow;
+  text-transform: uppercase;
 }
 
 

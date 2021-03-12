@@ -1,6 +1,12 @@
 /**
-Haiku Generator
+Haiku Generator ++
 with Pippin Barr
+
+enhance by Jennifer Poohachoff
+
+- improve the HTML and CSS presentation of the haiku
+- Added a randomly generated title to the poem by using a random word from each line
+- Add another DOM event into the user interaction that changes the color of the text
 */
 
 "use strict";
@@ -28,18 +34,42 @@ let line1 = document.getElementById(`line-1`);
 let line2 = document.getElementById(`line-2`);
 let line3 = document.getElementById(`line-3`);
 
+let span1 = document.getElementById(`span-1`);
+let span2 = document.getElementById(`span-2`);
+let span3 = document.getElementById(`span-3`);
+
+
+
 
 // Set up the starting lines
 setupLines();
+
 addListeners();
+
+
 
 /**
 Puts a randomly chosen haiku line in each line of the poem in HTML
 */
 function setupLines() {
+
+
   line1.innerText = random(haikuLines.fiveSyllables);
   line2.innerText = random(haikuLines.sevenSyllables);
   line3.innerText = random(haikuLines.fiveSyllables);
+
+  setupTitle();
+
+}
+
+function setupTitle() {
+  let sp1 = line1.innerText.split(" ");
+  let sp2 = line2.innerText.split(" ");
+  let sp3 = line3.innerText.split(" ");
+
+  span1.innerText = random(sp1);
+  span2.innerText = random(sp2);
+  span3.innerText = random(sp3);
 }
 
 /**
@@ -49,6 +79,27 @@ function addListeners() {
   line1.addEventListener(`click`, changeLine);
   line2.addEventListener(`click`, changeLine);
   line3.addEventListener(`click`, changeLine);
+
+  line1.addEventListener(`mouseenter`, mouseEnterWord);
+  line2.addEventListener(`mouseenter`, mouseEnterWord);
+  line3.addEventListener(`mouseenter`, mouseEnterWord);
+}
+
+/**
+Randomly changes the color of the moused over word and sets a timer to revert
+it to black (to give the appearance of a moving trail)
+*/
+function mouseEnterWord(event) {
+  // From: https://dev.to/akhil_001/generating-random-color-with-single-line-of-js-code-fhj
+  // So create a random hexadecimal color we can use
+  const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+  let highlightColor = '#ff0';
+  // Set the element's color to the random color
+  event.target.style[`color`] = highlightColor;
+  // Set a timeout to revert the color to black after 1500 milliseconds
+  setTimeout(function() {
+    event.target.style[`color`] = `#000000`;
+  }, 1500);
 }
 
 /**
@@ -119,6 +170,7 @@ function setNewLine(element) {
     // If the element is line2 use seven
     element.innerText = random(haikuLines.sevenSyllables);
   }
+    setupTitle();
 }
 
 /**
