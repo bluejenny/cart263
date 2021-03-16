@@ -1,0 +1,20 @@
+body {
+
+}
+
+#secret-doc {
+  font-family: monospace;
+  width: 50vw;
+  font-size: 1.2rem;
+  margin: auto;
+}
+
+.redacted {
+  background-color: #000;
+  user-select: none;
+}
+
+.reveal {
+  color: red;
+  text-decoration: underline;
+}
