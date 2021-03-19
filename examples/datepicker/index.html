@@ -2,7 +2,23 @@
 <html>
   <head>
     <title>Input examples</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      width="device-width,"
+      initial-scale="1.0,"
+      maximum-scale="1.0,"
+      user-scalable="0"
+    />
+
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <main>
@@ -16,14 +32,26 @@
       </section>
       <section>
         <!-- A slider from 0-100 with a default of 0 -->
-        <input type="range" value="0" min="0" max="100">
+        <input type="range" value="0" min="0" max="100" />
+      </section>
+      <section>
+        <label for="name">Mood:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          minlength="4"
+          maxlength="8"
+          size="10"
+        />
       </section>
       <section>
 
-        <label for="name">Word:</label>
-        <input type="text" id="name" name="name" required minlength="4"
-          maxlength="8" size="10"/>
-
+        <div id="box">
+        </div>
+        <button id="btn2">not content</button>
+        <button id="btn1">content</button>
       </section>
     </main>
 

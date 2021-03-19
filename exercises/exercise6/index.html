@@ -1,36 +1,103 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      width="device-width,"
+      initial-scale="1.0,"
+      maximum-scale="1.0,"
+      user-scalable="0"
+    />
 
-    <title>--- TOP SECRET ---</title>
+    <title>::Memorandum::</title>
 
     <!-- CSS stylesheet(s) -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
     <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous">
+    </script>
   </head>
 
-  <body>
+  <body id="destroy">
     <section id="secret-doc">
-      <h2>*** Top Secret ***</h2>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempor, elit non eleifend feugiat, arcu ipsum commodo eros, <span class="top-secret redacted">a pharetra massa magna a justo.</span> Morbi tincidunt dui ut tellus varius consequat. In vehicula posuere ultrices. <span class="top-secret redacted">Curabitur et suscipit</span> justo. Suspendisse ac velit enim. In ac dignissim mauris. Etiam nec mi ultricies augue gravida consequat.
+      <h2>Memo</h2>
+      <table>
+        <tr>
+          <td><strong>To:</strong></td>
+          <td>
+            All <span class="animateText" id="employee">Employees</span>
+          </td>
+          <div id="toggle"></div>
+        </tr>
+        <tr>
+          <td><strong>From:</strong></td>
+          <td>Name</td>
+        </tr>
+        <tr>
+          <td><strong>Date:</strong></td>
+          <td><input id="date-picker" type="date" /></td>
+        </tr>
+        <tr>
+          <td><strong>Re:</strong></td>
+          <td>Subject</td>
+        </tr>
+      </table>
+      <hr />
+
+      <p>
+        A memo’s purpose is often to inform, but it occasionally includes an
+        element of persuasion or a
+        <span class="top-secret redacted">call to action</span>. All
+        organizations have informal and formal communication networks. The
+        unofficial, informal communication network within an organization is
+        often called
+        <span class="top-secret redacted">the grapevine</span> while the
+        <span class="top-secret redacted">official communication</span> is
+        called a memorandum or memo.
       </p>
-      <p>Integer sed felis sed dolor eleifend tristique ac vitae nisi. Proin ut neque semper, interdum sapien ut, imperdiet tortor. Nullam nisl justo, <span class="top-secret redacted">tristique et congue non, varius ac felis</span>. Pellentesque sit amet justo aliquam, eleifend tortor in, porta elit. Curabitur eget dolor sit amet massa tempor consectetur ac eget sem. In mollis purus ac velit cursus, a egestas est bibendum. Sed hendrerit nisl ut ultricies rhoncus. Nulla consequat laoreet varius. Maecenas tempus nibh est, eget aliquet urna posuere nec. Etiam ac turpis mi. Proin ac elit gravida, tincidunt nisi sit amet, fringilla dolor. Vestibulum porta, libero vitae convallis consectetur, <span class="top-secret redacted">lectus libero</span> pharetra est, eu laoreet diam orci sit amet dolor. Fusce sollicitudin venenatis tortor non ornare. Nulla enim sapien, bibendum eget ante sit amet, auctor commodo felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla malesuada aliquam arcu ut convallis.
+      <p>
+        A memo has a header that clearly indicates who sent it and who the
+        intended recipients are.
+        <span class="top-secret redacted">Pay particular attention</span> to the
+        title of the individual(s) in this section. Date and subject lines are
+        also present, followed by a message that <span class="top-secret redacted">contains
+        a declaration</span>, a discussion,
+        and a summary.
       </p>
-      <p>Donec nec aliquet mauris. Nulla et lorem at metus lacinia sollicitudin vel eget tortor. <span class="top-secret redacted">Etiam facilisis justo et leo vestibulum, ut rutrum mi ultricies. Quisque ullamcorper velit in mattis convallis.</span> Duis maximus leo libero, ut ultrices nunc auctor quis. Suspendisse et mattis erat. Nulla facilisi. Morbi nec velit fringilla, pulvinar sem eget, commodo justo. Quisque leo nisl, convallis nec ullamcorper eget, finibus sed felis. Nunc egestas, metus vel sodales viverra, quam elit bibendum orci, <span class="top-secret redacted">a maximus lectus</span> tellus sit amet tellus. Sed maximus, arcu sed laoreet auctor, sem ipsum euismod quam, ut bibendum dui turpis vitae lorem. Pellentesque at dolor vel leo pulvinar consectetur mattis id nulla.
+      <p>
+        Memos are often announcements, and the person sending the memo <span class="top-secret redacted">speaks
+        for a part or all</span> of the organization. While
+        it may contain a request for feedback, the announcement itself is
+        linear, from the
+        organization to the
+        <span class="top-secret redacted">employees</span>.
+      </p>
+      <p>
+        Some written business communication
+        <span class="top-secret redacted">allows for a choice</span> between
+        direct and indirect formats, but memorandums are
+        <span class="top-secret redacted">always direct</span>. The purpose is
+        clearly announced
+      </p>
+      <p>
+        Memos are a
+        <span class="top-secret redacted">place for just the facts</span>, and
+        should have an objective tone without <span class="top-secret redacted">personal bias</span>, preference, or
+        interest on display.
+        <span class="top-secret redacted">Avoid</span> subjectivity.
       </p>
     </section>
 
-
-
-
+    <footer>
+      <button>Destroy Document</button>
+    </footer>
 
     <!-- script(s) -->
     <script src="js/script.js"></script>
   </body>
-
 </html>
