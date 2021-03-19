@@ -5,7 +5,26 @@ body {
 }
 
 footer {
-  padding-top: 30px;
+  padding-top: 20px;
+}
+
+button {
+  border: 1px solid #222;
+  background: #fff;
+  padding: 3px 30px;
+}
+
+button:hover {
+  background: black;
+  color: red;
+}
+
+
+h1 {
+  font-family: 'impact', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 #secret-doc {

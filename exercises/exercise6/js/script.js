@@ -4,12 +4,14 @@ created by Pippin Barr
 adapted by Jennifer Poohachoff
 
 text from https://courses.lumenlearning.com/technicalwriting/chapter/memos_-purpose-and-format-2/
+employee synonyms from https://www.thesaurus.com/browse/employee
 
 Updates:
 - Find a different text to be redacted
-- Added some Javascript animation - 'To:' fades out and text is replaced by random in an array
-- Added CSS slidein animation - 'To: All ______' where _____  is emphasized
-- Added Jquery fade out animation - destroy document button
+- Added some additional CSS
+- Added some Javascript animation - 'To: All ______' where ______ fades out and by random text from array
+- Added CSS slidein animation - 'To: All ______' where ______  is emphasized
+- Added Jquery fade out animation via 'Destroy Document' button
 */
 
 "use strict";
