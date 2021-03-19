@@ -11,14 +11,19 @@ footer {
 button {
   border: 1px solid #222;
   background: #fff;
-  padding: 3px 30px;
+  padding: 5px 30px;
+  font-size: .75rem;
+  text-transform: uppercase;
 }
 
 button:hover {
   background: black;
-  color: red;
+  color: white;
 }
 
+input[type=text], input[type=date] {
+  color: grey;
+}
 
 h1 {
   font-family: 'impact', sans-serif;
