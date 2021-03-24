@@ -30,9 +30,15 @@ button {
   display: inline-block;
 }
 
-#box {
+.box {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+}
+
+#line {
   background: #000;
-  height: 20px;
+  height: 10px;
   margin-bottom: 10px;
   border: 1px solid #222;
 }

@@ -27,9 +27,12 @@ colorPicker.addEventListener(`input`, function(event) {
 // jquery animate happy sad line
 $(document).ready(function(){
   $("#btn1").click(function(){
-    $("#box").animate({width: "100%"});
+    $("#line").animate({width: "100%"});
   });
   $("#btn2").click(function(){
-    $("#box").animate({width: "0"});
+    $("#line").animate({width: "50%"});
+  });
+  $("#btn3").click(function(){
+    $("#line").animate({width: "0"});
   });
 });
