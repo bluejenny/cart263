@@ -5,15 +5,86 @@ I got style
 **********************************************/
 
 body {
-  font-size: 1.3rem;
+  font-size: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  font-family: 'Reenie Beanie', cursive;
+  color: #222;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+p {
+  font-size: 1.55rem;
+  letter-spacing: -1px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+img {
+  max-width: 750px;
+}
+
+.xlarge {
+  font-size: 1.75rem;
+  margin-left: 50%;
+  margin-top: 25px;
+}
+
+.postcard {
+  display: block;
+  margin: 0 auto;
+  margin-top: 7%;
+  border: 1px solid #222;
+  max-width: 750px;
+  max-height: 500px;
+}
+
+.text {
+  /* transform: rotate(-3deg); */
+  padding: 20px;
+}
+
+.address {
+  border-left: 1px solid #222;
+  margin: 20px 0;
+  padding-top: 30%;
+}
+
+.address span {
+  display: block;
+  margin: 0 auto;
+  border-bottom: 1px solid #222;
+  padding-top: 50px;
+  width: 80%;
+}
+
+#cardb {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#cardf {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 #answer {
-  width: 20%;
-  height: 2rem;
-  border: 1px solid #222;
+  text-align: center;
+  font-size: 2.5rem;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 200px;
+  height: 2.5rem;
+  color: magenta;
+  border-bottom: 1px solid #222;
 }
 
 .found {
-  color: blue;
+  color: magenta;
 }

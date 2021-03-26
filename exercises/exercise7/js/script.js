@@ -1,12 +1,19 @@
 /**
-Code Taker
-by Pippin Barrs
+Code Taker ++
+created by Pippin Barrs
+
+adapted by Jennifer Poohachoff
+
+** UPDATES **
+- Reworked the HTML and CSS
+- Changed text and secret message
+
 */
 
 "use strict";
 
 // The secret answer we're looking for (including capitalization)
-let secret = `Theremin`;
+let secret = `MissYou`;
 
 // Turn the dialog div into an actual dialog
 $(`#solved-dialog`).dialog({
