@@ -72,6 +72,12 @@ button {
   border-bottom: 1px solid #222;
   padding-top: 50px;
   width: 80%;
+  text-align: center;
+  font-family: sans-serif;
+  color: #ddd;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.35rem;
 }
 
 #cardb {
@@ -100,6 +106,24 @@ button {
   height: 2.5rem;
   color: magenta;
   border-bottom: 1px solid #222;
+}
+
+#solved-dialog p {
+  font-size: 1rem;
+  letter-spacing: normal;
+}
+
+#solved-dialog button {
+  font-size: 1rem;
+  width: 100px;
+  height: 50px;
+}
+
+.ui-button {
+  width: 100px;
+  height: 50px;
+  top: unset;
+  right: unset;
 }
 
 .found {

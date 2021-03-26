@@ -13,7 +13,8 @@ adapted by Jennifer Poohachoff
 "use strict";
 
 // The secret answer we're looking for (including capitalization)
-let secret = `MissYou`;
+// let secret = `MissYou`;
+let secret = `M`;
 
 // Turn the dialog div into an actual dialog
 $(`#solved-dialog`).dialog({
@@ -21,7 +22,7 @@ $(`#solved-dialog`).dialog({
   autoOpen: false,
   // Add a condescending button to close it
   buttons: {
-    "I know": function() {
+    "CLOSE": function() {
       $(this).dialog(`close`);
     }
   }
