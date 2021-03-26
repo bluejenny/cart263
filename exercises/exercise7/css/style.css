@@ -39,6 +39,11 @@ button {
   right: 30px;
 }
 
+button:active {
+  background: magenta;
+  border: 0;
+}
+
 .xlarge {
   font-size: 1.75rem;
   margin-left: 50%;

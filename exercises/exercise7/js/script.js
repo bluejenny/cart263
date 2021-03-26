@@ -7,14 +7,15 @@ adapted by Jennifer Poohachoff
 ** UPDATES **
 - Reworked the HTML and CSS
 - Changed text and secret message
-
+- Added an additional feature when user gets message correct they can view postcard
 */
 
 "use strict";
 
 // The secret answer we're looking for (including capitalization)
-// let secret = `MissYou`;
-let secret = `M`;
+let secret = `MissYou`;
+// testing purposes
+// let secret = `M`;
 
 // Turn the dialog div into an actual dialog
 $(`#solved-dialog`).dialog({
