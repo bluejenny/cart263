@@ -15,11 +15,12 @@ body {
 h1 {
   font-size: 2.25rem;
   font-weight: normal;
-  margin: 0;
+  margin-bottom: 0;
+  margin-top: 20px;
 }
 
 p {
-  font-size: 1.55rem;
+  font-size: 1.75rem;
   letter-spacing: -1px;
   margin-top: 15px;
   margin-bottom: 10px;
@@ -27,6 +28,15 @@ p {
 
 img {
   max-width: 750px;
+}
+
+button {
+  position: absolute;
+  display: block;
+  width: 70px;
+  height: 90px;
+  top: 30px;
+  right: 30px;
 }
 
 .xlarge {
@@ -42,6 +52,7 @@ img {
   border: 1px solid #222;
   max-width: 750px;
   max-height: 500px;
+  position: relative;
 }
 
 .text {
@@ -52,7 +63,7 @@ img {
 .address {
   border-left: 1px solid #222;
   margin: 20px 0;
-  padding-top: 30%;
+  padding-top: 40%;
 }
 
 .address span {
@@ -66,11 +77,17 @@ img {
 #cardb {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  width: 750px;
+  height: 500px;
+
 }
 
 #cardf {
-  display: grid;
+  position: absolute;
+  top: 0;
+  left: 0;
   grid-template-columns: 1fr;
+
 }
 
 #answer {
@@ -87,4 +104,8 @@ img {
 
 .found {
   color: magenta;
+}
+
+.myimgdivtoggle{
+	display: none;
 }

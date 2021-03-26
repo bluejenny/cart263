@@ -54,6 +54,12 @@ $(`#answer`).droppable({
     if ($(`#answer`).text() === secret) {
       // If they did, display the dialog!
       $(`#solved-dialog`).dialog(`open`);
+
+      $(document).ready(function(){
+      	$('.togglebtn').click(function(){
+         		$('.myimgdivtoggle').toggle();
+      	});
+      });
     }
   }
 });
