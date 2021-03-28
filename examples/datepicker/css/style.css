@@ -7,19 +7,19 @@
 body {
   font-family: sans-serif;
   display: grid;
+  background: #ddd;
 }
 
-main {
+.datecolorpicker {
   display: block;
   margin: 0 auto;
   text-align: center;
-  padding-top: 15%;
-  width: 30%;
-  min-width: 300px;
+  padding-top: 13%;
+  width: 90%;
 }
 
 section {
-  padding: 5%;
+  padding: 2%;
 }
 
 label {
@@ -33,12 +33,19 @@ button {
 .box {
   display: block;
   margin: 0 auto;
-  width: 50%;
+  width: 30%;
 }
 
 #line {
   background: #000;
   height: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
   border: 1px solid #222;
+}
+
+.sliderspg {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(50, 1fr);
 }

@@ -1,5 +1,7 @@
 /**
 datePicker
+
+moods.json from: https://github.com/dariusk/corpora/blob/master/data/humans/moods.json
 */
 
 "use strict";

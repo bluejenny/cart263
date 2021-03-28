@@ -6,6 +6,7 @@ stylesheet
 
 body {
   overflow: hidden;
+  background: #ddd;
 }
 
 /* Style words to have borders that make them look like a magnet */

@@ -21,18 +21,19 @@
     ></script>
   </head>
   <body>
-    <main>
+    <main class="datecolorpicker">
       <section>
         <!-- A date picker -->
-        <input id="date-picker" type="date" />
+        <input id="date-picker" type="date" min="2021-03-28" />
       </section>
       <section>
         <!-- A color picker -->
         <input id="color-picker" type="color" />
       </section>
       <section>
-        <label for="cars">I am feeling:</label>
-        <select id="cars" name="cars">
+        <!-- <label for="moods"></label><br><br> -->
+        <select id="moods" name="moods">
+          <option value="">I am feeling:</option>
           <option value="abandoned">abandoned</option>
           <option value="absent minded">absent minded</option>
           <option value="abused">abused</option>
@@ -81,14 +82,25 @@
         </select>
       </section>
       <section>
-        <!-- A slider from 0-100 with a default of 0 -->
-        <input type="range" value="0" min="0" max="100" />
+        <input type="radio" id="left" name="alignment" value="left" >
+        <input type="radio" id="center" name="alignment" value="center">
+        <input type="radio" id="right" name="alignment" value="right">
       </section>
-      <section class="box">
+      <!-- <section>
+          <input type="number" id="quantity" name="quantity" min="0" max="100">
+      </section> -->
+      <section>
+        <input type="range" value="50" min="0" max="100" />
+      </section>
+      <!-- <section class="box">
         <div id="line"></div>
-        <button id="btn1">yes</button>
-        <button id="btn2">maybe</button>
         <button id="btn3">no</button>
+        <button id="btn2">maybe</button>
+        <button id="btn1">yes</button>
+      </section> -->
+      <section>
+        <input type="submit" value="Submit">
+        <!-- <input type="reset"> -->
       </section>
     </main>
 
