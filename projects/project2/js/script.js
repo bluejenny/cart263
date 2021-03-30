@@ -1,11 +1,28 @@
 /**
-Title of Project
-Author Name
+Mood Tracker Calendar
+Jennifer Poohachoff
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+
 */
 
 "use strict";
 
-// Code goes here
+$(`#input-form`).dialog({
+  resizable: false,
+  modal: true,
+  buttons: {
+    "Submit": function() {
+
+    }
+  }
+});
+
+$( ".prison" ).draggable();
+// $( "#prison" ).draggable({ containment: "parent" });
+
+
+// $(`#escape-tunnel`).droppable({
+//   drop: function(event, ui) {
+//     $(`#prisoner`).remove();
+//   }
+// });

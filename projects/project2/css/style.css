@@ -39,17 +39,17 @@ section:first-child {
 }
 
 section:nth-child(2) {
-  width: 90%;
+  /* width: 90%; */
   background: #CD8989;
 }
 
 section:nth-child(3) {
-  width: 30%;
+  /* width: 30%; */
   background: #062C3C;
 }
 
 section:nth-child(4) {
-  width: 100%;
+  /* width: 100%; */
   background: #8D389F;
 }
 
@@ -102,4 +102,30 @@ section:nth-child(15) {
 section:nth-child(16) {
   width: 80%;
   background: #123456;
+}
+
+.prison {
+  position: absolute;
+  font-family: Helvetica, sans-serif;
+  color: black;
+  background-color: white;
+  display: inline-block;
+  padding: 1px;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 2px solid black;
+  border-bottom: 3px solid black;
+}
+
+#prisoner {
+  font-size: 1em;
+}
+
+#escape-tunnel {
+  position: absolute;
+  border: 1px dashed #222;
+  border-radius: 50%;
+  padding: 25px 10px;
+  bottom: 0;
+  right: 0;
 }
