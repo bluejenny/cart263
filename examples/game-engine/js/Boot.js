@@ -6,7 +6,7 @@ class Boot extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(`wall`, 'assets/images/prick.png');
+    this.load.image(`wall`, 'assets/images/wall.png');
     this.load.spritesheet(`avatar`, `assets/images/penis-sprite.png`, {
       frameWidth: 120,
       frameHeight: 121,

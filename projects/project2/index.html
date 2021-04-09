@@ -36,122 +36,24 @@
   </head>
 
   <body>
-    <section>
-      <!-- <p>admired</p> -->
-    </section>
-
-    <section>
-      <div class="prison">
-        <span id="prisoner">energized</span>
-      </div>
-    </section>
-
-    <section>
-      <div class="prison">
-        <span id="prisoner">angry</span>
-      </div>
-    </section>
-
-    <section></section>
-
-    <section>
-      <!-- <p>anxious</p> -->
-    </section>
-
-    <section>
-      <!-- <p>awkward</p> -->
-    </section>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <section>
-      <!-- <p>fantastic</p> -->
-    </section>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <section></section>
-
-    <section>
-      <!-- <p>misinterpreted</p> -->
-    </section>
-
-    <!-- <section>
-      <span id="escape-tunnel">remove</span>
-    </section> -->
-
-    <div id="input-form" title="title">
+    <!-- <button type="button" id="formButton">Toggle Form!</button> -->
+    <form id="input-form" title="" class="">
       <!-- A date picker -->
-      <input id="date-picker" type="datetime-local" min="2021-03-28" />
+      <input id="date-picker" type="datetime-local" min="2021-03-28" required />
 
       <!-- A color picker -->
-      <input id="color-picker" type="color" value="#dddddd" />
+      <input id="color-picker" type="color" value="#cccccc" required />
 
-      <select id="moods" name="moods">
-        <option value="">I am  feeling:</option>
-        <option value="abandoned">abandoned</option>
-        <option value="absent minded">absent minded</option>
-        <option value="abused">abused</option>
-        <option value="accomplished">accomplished</option>
-        <option value="accusatory">accusatory</option>
-        <option value="accused">accused</option>
-        <option value="admired">admired</option>
-        <option value="adored">adored</option>
-        <option value="adrift">adrift</option>
-        <option value="affectionate">affectionate</option>
-        <option value="afraid">afraid</option>
-        <option value="aggravated">aggravated</option>
-        <option value="aggressive">aggressive</option>
-        <option value="agitated">agitated</option>
-        <option value="alarmed">alarmed</option>
-        <option value="alert">alert</option>
-        <option value="alienated">alienated</option>
-        <option value="alive">alive</option>
-        <option value="alluring">alluring</option>
-        <option value="alone">alone</option>
-        <option value="aloof">aloof</option>
-        <option value="amazed">amazed</option>
-        <option value="ambushed">ambushed</option>
-        <option value="amused">amused</option>
-        <option value="angry">angry</option>
-        <option value="annoyed">annoyed</option>
-        <option value="antagonistic">antagonistic</option>
-        <option value="anxious">anxious</option>
-        <option value="apathetic">apathetic</option>
-        <option value="apologetic">apologetic</option>
-        <option value="appalled">appalled</option>
-        <option value="appreciated">appreciated</option>
-        <option value="appreciative">appreciative</option>
-        <option value="apprehensive">apprehensive</option>
-        <option value="aroused">aroused</option>
-        <option value="ashamed">ashamed</option>
-        <option value="astonished">astonished</option>
-        <option value="attacked">attacked</option>
-        <option value="attractive">attractive</option>
-        <option value="awake">awake</option>
-        <option value="aware">aware</option>
-        <option value="awe">awe</option>
-        <option value="awed">awed</option>
-        <option value="awestruck">awestruck</option>
-        <option value="awkward">awkward</option>
-      </select>
+      <select id="moods" name="moods"> </select>
 
+      <div id="alignment-picker" class="radiobtns">
         <input type="radio" id="left" name="alignment" value="left" />
         <input type="radio" id="center" name="alignment" value="center" />
         <input type="radio" id="right" name="alignment" value="right" />
+      </div>
 
-        <input type="range" value="50" min="0" max="100" />
-    </div>
+      <input id="width-picker" type="range" value="50" min="0" max="100" />
+    </form>
 
     <!-- scripts -->
     <script src="js/script.js"></script>

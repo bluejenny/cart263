@@ -7,7 +7,32 @@ class Play extends Phaser.Scene {
 
 
   create() {
-    // this.wall = this.add.image(500, 200, `wall`);
+    this.walls = this.physics.add.group({
+      key: `wall`,
+      immovable: true,
+      quantity: 5
+    });
+
+    this.walls.children.each(function(wall) {
+      let x = Math.random() * this.sys.canvas.width;
+      let y = Math.random() * this.sys.canvas.height;
+      wall.setPosition(x, y);
+      wall.setTint(`0x000000`);
+    }, this);
+
+    this.collectables = this.physics.add.group({
+      key: `wall`,
+      immovable: true,
+      quantity: 10
+    });
+
+    this.collectables.children.each(function(collectable) {
+      let x = Math.random() * this.sys.canvas.width;
+      let y = Math.random() * this.sys.canvas.height;
+      collectable.setPosition(x, y);
+      collectable.setTint(`0x33dd33`);
+    }, this);
+
     this.avatar = this.physics.add.sprite(0, 800, `avatar`);
 
     this.createAnimations();
@@ -17,7 +42,14 @@ class Play extends Phaser.Scene {
     this.avatar.play(`idle`);
     this.avatar.setCollideWorldBounds(true);
 
+    this.physics.add.collider(this.avatar, this.walls);
+    this.physics.add.overlap(this.avatar, this.collectables, this.collectItem, null, this);
+
     this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  collectItem(avatar, collectable) {
+    collectable.destroy();
   }
 
   createAnimations() {
@@ -72,13 +104,6 @@ class Play extends Phaser.Scene {
         this.avatar.setVelocityY(300);
     }
 
-    // NOTE: Now that the avatar might be moving or idle, we should
-    // check its current velocity to figure out which animation to play!
-    // Notice that to check the current velocity we need to access the
-    // "body" property of our avatar (which represents it in relation to the physics
-    // engine) and then the "velocity" property of that body.
-
-    // If either x or y velocity isn't zero, that the avatar is moving
     if (this.avatar.body.velocity.x !== 0 || this.avatar.body.velocity.y !== 0) {
       // NOTE: That we include a second argument of "true" to tell the animation system
       // to ignore this instruction if the animation is already playing. This avoids
