@@ -36,10 +36,13 @@
   </head>
 
   <body>
+    <section id="calendar">
+    </section>
     <!-- <button type="button" id="formButton">Toggle Form!</button> -->
     <form id="input-form" title="" class="">
       <!-- A date picker -->
-      <input id="date-picker" type="datetime-local" min="2021-03-28" required />
+      <input id="date-picker" type="datetime-local" value="" min="2021-03-28" required />
+      <input type="text" id="datepicker">
 
       <!-- A color picker -->
       <input id="color-picker" type="color" value="#cccccc" required />
@@ -53,6 +56,7 @@
       </div>
 
       <input id="width-picker" type="range" value="50" min="0" max="100" />
+      <input type="button" id="add" value="submit"></input>
     </form>
 
     <!-- scripts -->
