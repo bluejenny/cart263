@@ -7,7 +7,7 @@ Jennifer Poohachoff
 "use strict";
 
 // form inputs
-let datePicker = document.getElementById(`date-picker`);
+// let datePicker = document.getElementById(`date-picker`);
 let colorPicker = document.getElementById(`color-picker`);
 let moodPicker = document.getElementById(`moods`);
 let alignmentPicker = document.getElementById(`alignment-picker`);
@@ -15,11 +15,15 @@ let widthPicker = document.getElementById(`width-picker`);
 
 // calendar blocks
 let blocks = [];
-let label = 0;
+let label = 1;
 
 //moods
 
 let moodDropdown = $("#moods");
+
+
+let color;
+let colorWidth;
 
 
 // new date picker for experiment
@@ -54,8 +58,8 @@ $.getJSON(url, function (data) {
 //
 // listen for colorpicker and change the background color when color is selected
 colorPicker.addEventListener(`input`, function (event) {
-  let color = event.target.value;
-  document.body.style[`background-color`] = color;
+  color = event.target.value;
+  // document.body.style[`background-color`] = color;
   console.log(color);
 });
 //
@@ -66,14 +70,14 @@ colorPicker.addEventListener(`input`, function (event) {
 //   console.log(mood);
 // });
 //
-// // listen for color width and store width
-// widthPicker.addEventListener(`change`, function (event) {
-//   let colorWidth = event.target.value;
-//   // alert(date);
-//   console.log(colorWidth);
-// });
+// listen for color width and store width
+widthPicker.addEventListener(`change`, function (event) {
+  colorWidth = event.target.value;
+  // alert(date);
+  console.log(colorWidth);
+});
 //
-// // listen for alignment
+// // listen for  alignment
 // alignmentPicker.addEventListener(`change`, function (event) {
 //   let alignment = event.target.value;
 //   // alert(date);
@@ -100,10 +104,10 @@ function addBlock() {
   // Create the block
   let $block = $(`<div id=${timestamp}></div>`);
   $block.css({
-    width: `${25 + Math.random() * 100}px`,
-    height: `100px`,
-    backgroundColor: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`,
-    float: `left`,
+    width: `${colorWidth}%`,
+    //height: `100px`,
+    backgroundColor: `${color}`,
+    display: `block`,
   });
   $block.text(label);
   label++;
