@@ -38,7 +38,7 @@ moodDropdown.empty();
 moodDropdown.append('<option selected="true" disabled>I am feeling:');
 moodDropdown.prop("selectedIndex", 0);
 
-const url = "../assets/json/moods.json";
+const url = "/assets/json/moods.json";
 
 $.getJSON(url, function (data) {
   for (let i = 0; i < data.moods.length; i++) {
