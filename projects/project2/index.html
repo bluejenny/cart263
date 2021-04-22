@@ -35,27 +35,28 @@
     <!-- Library script(s) go here -->
   </head>
 
-  <body id="calendar">
-    <!-- <button type="button" id="formButton">Toggle Form!</button> -->
+  <body>
+    <button id="open-input-form" class="openclose">Open Form</button>
+
+    <main id="calendar">
     <form id="input-form" title="" class="">
       <!-- A date picker -->
       <input id="date-picker" type="datetime-local" value="" min="2021-03-28" required />
-      <input type="text" id="datepicker">
 
       <!-- A color picker -->
       <input id="color-picker" type="color" value="#cccccc" required />
 
-      <select id="moods" name="moods"> </select>
+      <select id="moods" name="moods" value=""> </select>
 
       <div id="alignment-picker" class="radiobtns">
         <input type="radio" id="left" name="alignment" value="left" />
-        <input type="radio" id="center" name="alignment" value="center" />
+        <input type="radio" id="center" name="alignment" value="center" checked/>
         <input type="radio" id="right" name="alignment" value="right" />
       </div>
 
-      <input id="width-picker" type="range" value="60" min="20" max="120" />
-      <input type="button" id="add" value="submit"></input>
+      <input id="width-picker" type="range" value="55" min="10" max="100" />
     </form>
+  </main>
 
     <!-- scripts -->
     <script src="js/script.js"></script>

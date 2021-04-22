@@ -2,7 +2,7 @@
 	"description" : "A list of words that naturally complete the phrase 'They were feeling...'.",
 	"moods" :
 	[
-		"abandoned,",
+		"abandoned",
 		"absent minded",
 		"abused",
 		"accepted",

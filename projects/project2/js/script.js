@@ -7,30 +7,25 @@ Jennifer Poohachoff
 "use strict";
 
 // form inputs
-// let datePicker = document.getElementById(`date-picker`);
-let colorPicker = document.getElementById(`color-picker`);
-let moodPicker = document.getElementById(`moods`);
-let alignmentPicker = document.getElementById(`alignment-picker`);
-let widthPicker = document.getElementById(`width-picker`);
+let datePicker;
+let colorPicker;
+let moodPicker;
+let alignment;
+let widthPicker;
 
 // calendar blocks
 let blocks = [];
 let label = 1;
 
-//moods
-
+//for dropdown of moods
 let moodDropdown = $("#moods");
 
+//fill in datetime-local with current/default time
+let now = new Date();
 
-let color;
-let colorWidth;
-
-
-// new date picker for experiment
-
-var $datepicker = $('#datepicker');
-$datepicker.datepicker();
-$datepicker.datepicker('setDate', new Date());
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+let string = now.toISOString();
+$(`#date-picker`).val(string.slice(0,16));
 
 // Add json file to <select> dropdown menu
 // https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
@@ -49,65 +44,52 @@ $.getJSON(url, function (data) {
 });
 
 
-// // listen for date input
-// datePicker.addEventListener(`change`, function (event) {
-//   let date = event.target.value;
-//   console.log(date);
-//   // alert(date);
-// });
-//
-// listen for colorpicker and change the background color when color is selected
-colorPicker.addEventListener(`input`, function (event) {
-  color = event.target.value;
-  // document.body.style[`background-color`] = color;
-  console.log(color);
-});
-//
-// // listen for mood picker and store word
-// moodPicker.addEventListener(`change`, function (event) {
-//   let mood = event.target.value;
-//   // alert(date);
-//   console.log(mood);
-// });
-//
-// listen for color width and store width
-widthPicker.addEventListener(`change`, function (event) {
-  colorWidth = event.target.value;
-  // alert(date);
-  console.log(colorWidth);
-});
-//
-// // listen for  alignment
-// alignmentPicker.addEventListener(`change`, function (event) {
-//   let alignment = event.target.value;
-//   // alert(date);
-//   console.log(alignment);
-// });
-//
 $(`#input-form`).dialog({
   resizable: false,
   modal: false,
   buttons: {
-    Submit: function () {},
+    Submit: function () {
+      datePicker = $(`#date-picker`).val();
+      colorPicker = $(`#color-picker`).val();
+      moodPicker = $(`#moods`).val();
+      alignment = $('input:radio[name=alignment]:checked').val();
+      widthPicker = $(`#width-picker`).val();
+      console.log(datePicker);
+      console.log(colorPicker);
+      console.log(moodPicker);
+      console.log(alignment);
+      console.log(widthPicker);
+      addBlock();
+    },
   },
 });
 
-$(`#add`).on(`click`, addBlock);
-
 // Get timestamp
 function addBlock() {
-  let date = $(`#datepicker`).val();
-  let timestamp = Date.parse(date);
+  let timestamp = Date.parse(datePicker);
   console.log(timestamp);
-  console.log(date);
+  let leftAlign = 0;
+  let rightAlign = 0;
+
+  if (alignment === `left`) {
+    rightAlign = `auto`;
+  } else if (alignment === `right`) {
+    leftAlign = `auto`;
+  } else {
+    leftAlign = `auto`;
+    rightAlign = `auto`;
+  }
 
   // Create the block
   let $block = $(`<div id=${timestamp}></div>`);
   $block.css({
-    width: `${colorWidth}%`,
-    //height: `100px`,
-    backgroundColor: `${color}`,
+    width: `${widthPicker}%`,
+    height: `50px`,
+    backgroundColor: `${colorPicker}`,
     display: `block`,
+    margin: `0 auto`,
+    marginLeft: leftAlign,
+    marginRight: rightAlign,
   });
   $block.text(label);
   label++;
@@ -133,7 +115,25 @@ function addBlock() {
  blocks.splice(index,0,timestamp);
 }
 
+
+$(function() {
+   $( "#input-form" ).dialog({
+ autoOpen: false,
+      close: function( event, ui ) {
+         console.log('closed')
+      },
+   });
+   $( "#open-input-form" ).click(function() {
+      $( "#input-form" ).dialog( "open" );
+   });
+});
+
+
 $(".prison").draggable();
+$(".openclose").draggable({
+  cancel:false
+});
+
 // $( "#prison" ).draggable({ containment: "parent" });
 
 /**
