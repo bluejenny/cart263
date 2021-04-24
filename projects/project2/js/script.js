@@ -20,12 +20,37 @@ let label = 1;
 //for dropdown of moods
 let moodDropdown = $("#moods");
 
+// The key used to save and load the data for this program
+const MOOD_DATA_KEY = `mood-block-data`;
+
 //fill in datetime-local with current/default time
 let now = new Date();
-
 now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 let string = now.toISOString();
 $(`#date-picker`).val(string.slice(0,16));
+
+// Try to load the data
+let dataBlocks = JSON.parse(localStorage.getItem(MOOD_DATA_KEY));
+
+if (dataBlocks) {
+// If so setup the block with the data
+for (let i = 0; i < blocks.length; i++) {
+    setupColorBlocks(dataBlocks);
+    }
+}
+
+/**
+Assigns across the profile properties from the data to the current profile
+*/
+function setupColorBlocks(data) {
+for (let i = 0; i < blocks.length; i++) {
+  blocks[i].datePicker = data.date;
+  blocks[i].colorPicker = data.color;
+  blocks[i].moodPicker = data.mood;
+  blocks[i].alignment = data.align;
+  blocks[i].widthPicker = data.width;
+  }
+}
 
 // Add json file to <select> dropdown menu
 // https://www.codebyamir.com/blog/populate-a-select-dropdown-list-with-json
@@ -36,7 +61,8 @@ moodDropdown.prop("selectedIndex", 0);
 const url = "assets/json/moods.json";
 
 $.getJSON(url, function (data) {
-  data.moods.sort((a, b) => {
+// randomize the json mood data
+data.moods.sort((a, b) => {
     if (Math.random() < .5) {
       return -1
     } else {
@@ -67,10 +93,16 @@ $(`#input-form`).dialog({
       console.log(moodPicker);
       console.log(alignment);
       console.log(widthPicker);
+      for (let i = 0; i < blocks.length; i++) {
+      localStorage.setItem(MOOD_DATA_KEY, JSON.stringify(blocks[i].data));
+      }
       addBlock();
     },
   },
 });
+
+// delete localstorage
+// localStorage.removeItem(PROFILE_DATA_KEY);
 
 // Get timestamp
 function addBlock() {
