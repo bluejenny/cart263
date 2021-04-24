@@ -6,6 +6,8 @@ Jennifer Poohachoff
 
 "use strict";
 
+// let blockObject?????
+
 // form inputs
 let datePicker;
 let colorPicker;
@@ -102,7 +104,7 @@ $(`#input-form`).dialog({
 });
 
 // delete localstorage
-// localStorage.removeItem(PROFILE_DATA_KEY);
+// localStorage.removeItem(MOOD_DATA_KEY);
 
 // Get timestamp
 function addBlock() {
