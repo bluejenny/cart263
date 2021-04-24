@@ -36,6 +36,14 @@ moodDropdown.prop("selectedIndex", 0);
 const url = "assets/json/moods.json";
 
 $.getJSON(url, function (data) {
+  data.moods.sort((a, b) => {
+    if (Math.random() < .5) {
+      return -1
+    } else {
+      return 1
+    }
+  })
+
   for (let i = 0; i < data.moods.length; i++) {
     moodDropdown.append(
       $("<option></option>").attr("value", data.moods[i]).text(data.moods[i])
