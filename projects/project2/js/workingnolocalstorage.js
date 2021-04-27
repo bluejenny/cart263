@@ -16,9 +16,7 @@ let alignment;
 let widthPicker;
 
 // calendar blocks
-let calendarData = {
-  blocks: []
-}
+let blocks = [];
 let label = 1;
 
 //for dropdown of moods
@@ -34,18 +32,14 @@ let string = now.toISOString();
 $(`#date-picker`).val(string.slice(0,16));
 
 // Try to load the data
-let data = JSON.parse(localStorage.getItem(MOOD_DATA_KEY));
+// let dataBlocks = JSON.parse(localStorage.getItem(MOOD_DATA_KEY));
 
-if (data) {
-  calendarData = data;
-  for (let i = 0; i < calendarData.blocks.length; i++) {
-    // calendarData.blocks[i].datePicker = data.date;
-    // calendarData.blocks[i].colorPicker = data.color;
-    // calendarData.blocks[i].moodPicker = data.mood;
-    // calendarData.blocks[i].alignment = data.align;
-    // calendarData.blocks[i].widthPicker = data.width;
-  }
-}
+// if (dataBlocks) {
+// // If so setup the block with the data
+// for (let i = 0; i < blocks.length; i++) {
+//     setupColorBlocks(dataBlocks);
+//     }
+// }
 
 /**
 Assigns across the profile properties from the data to the current profile
@@ -101,6 +95,9 @@ $(`#input-form`).dialog({
       console.log(moodPicker);
       console.log(alignment);
       console.log(widthPicker);
+      // for (let i = 0; i < blocks.length; i++) {
+      // localStorage.setItem(MOOD_DATA_KEY, JSON.stringify(blocks[i].data));
+      // }
       addBlock();
     },
   },
@@ -112,7 +109,7 @@ $(`#input-form`).dialog({
 // Get timestamp
 function addBlock() {
   let timestamp = Date.parse(datePicker);
-  // console.log(timestamp);
+  console.log(timestamp);
   let leftAlign = 0;
   let rightAlign = 0;
 
@@ -140,26 +137,24 @@ function addBlock() {
   label++;
 
   // Search for where to add the new block based on its timestamp
-  let index = calendarData.blocks.length;
-  for (let i = 0; i < calendarData.blocks.length; i++) {
-    if (timestamp < calendarData.blocks[i]) {
+  let index = blocks.length;
+  for (let i = 0; i < blocks.length; i++) {
+    if (timestamp < blocks[i]) {
       index = i;
       break;
     }
   }
 
   // Add the block HTML element to the page in the right position
- if ($(`#${calendarData.blocks[index]}`).length === 0) {
+ if ($(`#${blocks[index]}`).length === 0) {
    $(`#calendar`).append($block)
  }
  else {
-   $(`#${calendarData.blocks[index]}`).before($block);
+   $(`#${blocks[index]}`).before($block);
  }
 
  // Adding the new timestamp to the array
- calendarData.blocks.splice(index,0,timestamp);
-
- localStorage.setItem(MOOD_DATA_KEY, JSON.stringify(calendarData));
+ blocks.splice(index,0,timestamp);
 }
 
 
