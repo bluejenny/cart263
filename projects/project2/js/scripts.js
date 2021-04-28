@@ -68,6 +68,8 @@ $.getJSON(url, function (data) {
 });
 
 $(`#input-form`).dialog({
+  wiidth: 600,
+  responsive: true,
   resizable: false,
   modal: false,
   buttons: {
