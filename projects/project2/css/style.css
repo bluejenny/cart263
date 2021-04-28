@@ -8,9 +8,14 @@ body {
   margin: 0;
   background: #bbb;
   font-family: monospace;
-  font-size: 14px;
+  font-size: 1rem;
   color: rgba(0, 0, 0, 0);
-  /* overflow: hidden; */
+}
+
+h1 {
+  font-family: sans-serif;
+  font-size: 1.45rem;
+  color: darkblue;
 }
 
 main {
@@ -53,9 +58,36 @@ select, input {
   font-size: 1em;
 } */
 
-#open-input-form {
+button {
   position: absolute;
   display: block;
   padding: 10px;
-  right: 0;
+}
+
+#open-input-form {
+  left: 50%;
+  top: 40%;
+}
+
+#erase-data {
+  top: 10px;
+  right: 10px;
+}
+
+#imgdisplaybutton {
+  left: 30px;
+  top: 90%;
+}
+
+.titleimage img {
+  display: block;
+  /* margin: 0 auto; */
+  margin-top: 30px;
+}
+
+.titleimage {
+  margin-top: 0;
+  padding-left: 30px;
+  color: black;
+  max-width: 400px;
 }

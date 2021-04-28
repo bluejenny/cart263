@@ -37,28 +37,57 @@
 
   <body>
     <button id="open-input-form" class="openclose">Open Form</button>
+    <button id="erase-data" class="">Erase History</button>
+    <button id="imgdisplaybutton" class="">show/hide instructions</button>
 
     <main id="calendar">
-    <form id="input-form" title="" class="">
-      <!-- A date picker -->
-      <input id="date-picker" type="datetime-local" value="" min="2021-03-28" required />
+      <form id="input-form" title="" class="">
+        <!-- A date picker -->
+        <input
+          id="date-picker"
+          type="datetime-local"
+          value=""
+          min="2021-03-28"
+          required
+        />
 
-      <!-- A color picker -->
-      <input id="color-picker" type="color" value="#bbbbbb" required />
+        <!-- A color picker -->
+        <input id="color-picker" type="color" value="#bbbbbb" required />
 
-      <select id="moods" name="moods" value=""> </select>
+        <select id="moods" name="moods" value=""> </select>
 
-      <div id="alignment-picker" class="radiobtns">
-        <input type="radio" id="left" name="alignment" value="left" />
-        <input type="radio" id="center" name="alignment" value="center" checked/>
-        <input type="radio" id="right" name="alignment" value="right" />
-      </div>
+        <div id="alignment-picker" class="radiobtns">
+          <input type="radio" id="left" name="alignment" value="left" />
+          <input
+            type="radio"
+            id="center"
+            name="alignment"
+            value="center"
+            checked
+          />
+          <input type="radio" id="right" name="alignment" value="right" />
+        </div>
 
-      <input id="width-picker" type="range" value="55" min="10" max="100" />
-    </form>
-  </main>
-
+        <input id="width-picker" type="range" value="55" min="10" max="100" />
+      </form>
+    </main>
+    <div class="titleimage">
+      <img src="assets/images/title.png" alt="Color Your Mood" />
+      <h1>Create your own Calendar</h1>
+      <p><strong>Instructions:</strong></p>
+      <ul>
+        <li>Select your date</li>
+        <li>Select your color</li>
+        <li>Select your mood</li>
+        <li>Align left, center, or right</li>
+        <li>Slider determines width</li>
+        <li>Press submit</li>
+      </ul>
+      <p>Return at another time and repeat process.</p>
+      <p><em>Note: You can move the buttons and form around the screen. If you would like to erase past data, click on 'Erase History' button and refresh the page.</em></p>
+    </div>
     <!-- scripts -->
-    <script src="js/script.js"></script>
+
+    <script src="js/scripts.js"></script>
   </body>
 </html>
