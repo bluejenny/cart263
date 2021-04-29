@@ -2,6 +2,7 @@
 Mood Tracker Calendar
 Jennifer Poohachoff
 
+Code contributions by Pippin Barr and Sabine Sabine Rosenberg
 */
 
 "use strict";
@@ -35,8 +36,8 @@ $(`#date-picker`).val(string.slice(0, 16));
 let data = JSON.parse(localStorage.getItem(MOOD_DATA_KEY));
 
 if (data) {
-  // If there's data we can loop through the blocks and add them
-  // to the application (and calendarData)
+  // If data loop through blocks and add them
+  // to the Calendar
   for (let i = 0; i < data.blocks.length; i++) {
     addBlock(data.blocks[i]);
   }
@@ -96,9 +97,6 @@ $(`#input-form`).dialog({
   },
 });
 
-// delete localstorage
-// localStorage.removeItem(MOOD_DATA_KEY);
-
 // Get timestamp
 function addBlock(blockData) {
   // Various setup tasks...
@@ -144,7 +142,6 @@ function addBlock(blockData) {
     // currently existing timestamp in the data)
     // So add it to the end of the calendar representation
     $(`#calendar`).append($block);
-    // And to the end of the data array
     calendarData.blocks.push(blockData);
   } else {
     // Otherwise we found an index position to insert our new block at
@@ -156,6 +153,7 @@ function addBlock(blockData) {
   }
 }
 
+// open and close button for the form
 $(function () {
   $("#input-form").dialog({
     autoOpen: false,
@@ -168,35 +166,29 @@ $(function () {
   });
 });
 
-  $("#erase-data").click(function(){
+// erase localStorage data button
+$("#erase-data").click(function () {
   localStorage.removeItem(MOOD_DATA_KEY);
-  });
+});
 
-// $(".prison").draggable();
-$("#erase-data").draggable({
+// make div dragglable not button for erasing local storage
+$(".xtraspace").draggable({
   cancel: false,
 });
+
+// make open form button draggable
 $(".openclose").draggable({
   cancel: false,
 });
+
+// make instruction display button draggable
 $("#imgdisplaybutton").draggable({
   cancel: false,
 });
 
-$(document).ready(function(){
-  $("#imgdisplaybutton").click(function(){
-    $(".titleimage").toggle(1000);
+// animate the instruction panel
+$(document).ready(function () {
+  $("#imgdisplaybutton").click(function () {
+    $(".titleimage").toggle(`slowly`);
   });
 });
-
-// $( "#prison" ).draggable({ containment: "parent" });
-
-/**
-create form button to open and close
-
-*/
-// $(document).ready(function() {
-//   $("#formButton").click(function() {
-//     $("#input-form").toggle();
-//   });
-// });
